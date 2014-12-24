@@ -26,8 +26,13 @@ public class FibonacciNumbers {
 	public static void main(String[] args) {
 		int input = 0;
 
-		if(args.length ==1) input = Integer.parseInt(args[0]);
-		else System.exit(0);
+		if(args.length ==1) {
+			input = Integer.parseInt(args[0]);
+		}
+		else {
+			System.out.println("Please enter an int as an argument.");
+			System.exit(0);
+		}
 
 		System.out.println(fibonacci(input));
 	}
