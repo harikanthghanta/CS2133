@@ -24,16 +24,16 @@ import java.util.Scanner;
 
 public class Statistics {
 	public static void main(String[] args) {
-		int sum = 0;
+		double sum = 0;
 		int count = 0;
 
 		Scanner keyboard = new Scanner(System.in);
 		System.out.println("Enter a series of numbers. Enter a negative number to quit.");
 
-		while(keyboard.hasNextInt()) {
-			int mInput = keyboard.nextInt();
+		while(keyboard.hasNextDouble()) {
+			double mInput = keyboard.nextDouble();
 
-			if(mInput < 0) {
+			if(mInput < 0.0) {
 				break;
 			}
 
@@ -44,7 +44,7 @@ public class Statistics {
 		System.out.println("You entered " + count + " numbers averaging " + Average(sum, count));
 	}
 
-	private static double Average(int sum, int count) {
+	private static double Average(double sum, int count) {
 		double result = ((double)sum / count);
 		return result;
 	}
