@@ -111,6 +111,16 @@ public class Poly {
 		}
 	}
 
+	public double evaluate(double x){
+		double result = 0;
+
+		for(int i = 0; i < this.polySize(); i++){
+			result += coefficients[i] * Math.pow(x, i);
+		}
+
+		return result;
+	}
+
 	public static void main(String[] args) {
 		int[] test1 = {4, 0, -8, 0, 3, 2};
 		Poly poly1 = new Poly(test1);
@@ -127,5 +137,8 @@ public class Poly {
 		int[] test4 = {4, -2, -4, 1, 3, 2};
 		Poly poly4 = new Poly(test4);
 		System.out.println("\n" + poly3.toString() + "\n2x^5+3x^4+x^3-4x^2-2x+4\n");
+
+
+		System.out.println(poly1.evaluate(2.0));
 	}
 }
