@@ -25,7 +25,7 @@ public class FunctionTest {
 		System.out.println(findRoot(3, 4, EPSILON));
 	}
 
-	public static double findRoot(double a, double b,  double epsilon) {
+	public double findRoot(double a, double b,  double epsilon) {
 		double x = (a + b) / 2;
 		if (Math.abs(a - x) < epsilon) {
 			return x;
