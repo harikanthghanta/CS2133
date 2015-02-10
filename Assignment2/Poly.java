@@ -57,11 +57,15 @@ public class Poly {
 					sb.append(this.coefficients[i]);
 				}
 			} else if(i == 1){
-				if(this.coefficients[i] > 0){
+				if(this.coefficients[i] == 0){
+					continue;
+				} else if(this.coefficients[i] > 0){
 					sb.append("+" + this.coefficients[i] + "x");
 				} else {
 					sb.append(this.coefficients[i] + "x");
 				}
+			} else if (this.coefficients[i] == 0) {
+				continue;
 			} else if(this.coefficients[i] == 1){
 				sb.append("+x^" + i);
 			} else {
@@ -111,17 +115,17 @@ public class Poly {
 		int[] test1 = {4, 0, -8, 0, 3, 2};
 		Poly poly1 = new Poly(test1);
 
-		System.out.println("\n" + poly1.toString() + " should be 2x^5+3x^4-8x^2+4\n"); //should print 2x^5+3x^4-8x^2+4
+		System.out.println("\n" + poly1.toString() + " should be \n2x^5+3x^4-8x^2+4\n"); //should print 2x^5+3x^4-8x^2+4
 
 		int[] test2 = {0, -2, 4, 1};
 		Poly poly2 = new Poly(test2);
 
 		Poly poly3 = poly1.add(poly2);
 
-		System.out.println("\n" + poly3.toString() + " should be 2x^5+3x^4+x3-4x^2-2x+4\n"); //should print 2x^5+3x^4+x3−4x^2−2x+4
+		System.out.println("\n" + poly3.toString() + " should be \n2x^5+3x^4+x^3-4x^2-2x+4\n"); //should print 2x^5+3x^4+x3−4x^2−2x+4
 
 		int[] test4 = {4, -2, -4, 1, 3, 2};
 		Poly poly4 = new Poly(test4);
-		System.out.println("\n" + poly3.toString() + "\n");
+		System.out.println("\n" + poly3.toString() + "\n2x^5+3x^4+x^3-4x^2-2x+4\n");
 	}
 }
