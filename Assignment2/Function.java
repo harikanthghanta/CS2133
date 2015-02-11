@@ -24,16 +24,34 @@ method.
 */
 
 public abstract class Function {
+	public static final double EPSILON = 0.00000001;
+
 	public abstract double evaluate(double x);
 
-	public static double findRoot(double a, double b,  double epsilon) {
+	public double findRoot(double a, double b,  double epsilon) {
 		double x = (a + b) / 2;
 		if (Math.abs(a - x) < epsilon) {
 			return x;
-		} else if (function(a) > 0 && function(x) > 0 || function(a) < 0 && function(x) < 0){
+		} else if (evaluate(a) > 0 && evaluate(x) > 0 || evaluate(a) < 0 && evaluate(x) < 0){
 			return findRoot(x, b, EPSILON);
 		} else {
 			return findRoot(a, x, EPSILON);
 		}
+	}
+
+	public static void main(String[] args){
+		SinFunc sn = new SinFunc();
+		System.out.println(sn.findRoot(3, 4, EPSILON));
+
+		CosFunc cn = new CosFunc();
+		System.out.println(cn.findRoot(1, 3, EPSILON));
+
+		int[] coef1 = {3, 0, 1};
+		PolyFunc poly1 = new PolyFunc(coef1);
+
+		int[] coef2 = {2, 1, 1};
+		PolyFunc poly2 = new PolyFunc(coef2);
+
+		
 	}
 }

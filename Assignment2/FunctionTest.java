@@ -18,25 +18,27 @@ out the root of sin(x) that falls between 3 and 4, to within 0.00000001. Does th
 familiar?
 */
 
-public class FunctionTest {
+public class FunctionTest extends Function {
 	public static final double EPSILON = 0.00000001;
 
 	public static void main(String[] args) {
-		System.out.println(findRoot(3, 4, EPSILON));
+		FunctionTest ft = new FunctionTest();
+
+		System.out.println(ft.findRoot(3, 4, EPSILON));
 	}
 
 	public double findRoot(double a, double b,  double epsilon) {
 		double x = (a + b) / 2;
 		if (Math.abs(a - x) < epsilon) {
 			return x;
-		} else if (function(a) > 0 && function(x) > 0 || function(a) < 0 && function(x) < 0){
+		} else if (evaluate(a) > 0 && evaluate(x) > 0 || evaluate(a) < 0 && evaluate(x) < 0){
 			return findRoot(x, b, EPSILON);
 		} else {
 			return findRoot(a, x, EPSILON);
 		}
 	}
 
-	public static double function(double param){
+	public double evaluate(double param){
 		return Math.sin(param);
 	}
 }
