@@ -23,11 +23,46 @@ PolyFunc.java), write javadoc comments explaining the purpose of each class and 
 method.
 */
 
+/**
+ * The purpose of this class is to provide subclasses with a way to find the root
+ * of a continuous function between two numbers given an acceptable ammount of error.
+ * The class must be extended and provide it's own evaluate class containing the 
+ * continuous function for which the user wishes to find the roots.
+ *
+ * @author      Kyle Riedemann
+ * @version     1.0
+ * @since       02-10-2015
+ */
+
 public abstract class Function {
+	/**
+ 	 * EPSILON is the ammount of acceptable error.
+ 	 */
 	public static final double EPSILON = 0.00000001;
 
+	/**
+	 * Abstract method for subclasses impliment their
+	 * contuous function that will be used with findRoot
+	 *
+	 * @param  x The value that will be evaluated for the implimented function
+     * @return The value of the implimented function at the given value
+	 */
 	public abstract double evaluate(double x);
 
+	/**
+	 * findRoot will find the value of x where the function 
+	 * evaluated is equal to 0 between points a and b
+	 * <p>
+ 	 * The method works using recursive devision.
+ 	 * If the value of x is not within a certain level of error,
+ 	 * then we call the findRoot method again with x taking the place of a or b
+ 	 * <p>
+	 *
+	 * @param  a the first bound to search within
+	 * @param  b the second bound to search within
+	 * @param  epsilon the level of acceptable error
+	 * @return Description text text text.
+	 */
 	public double findRoot(double a, double b,  double epsilon) {
 		double x = (a + b) / 2;
 		if (Math.abs(a - x) < epsilon) {
@@ -40,18 +75,24 @@ public abstract class Function {
 	}
 
 	public static void main(String[] args){
+		System.out.println("\nSine Find Root\n");
 		SinFunc sn = new SinFunc();
 		System.out.println(sn.findRoot(3, 4, EPSILON));
 
+		System.out.println("\nCosine Find Root\n");
 		CosFunc cn = new CosFunc();
 		System.out.println(cn.findRoot(1, 3, EPSILON));
 
-		int[] coef1 = {3, 0, 1};
+		System.out.println("\nPolynomial Find Root\n");
+		int[] coef1 = {-3, 0, 1};
 		PolyFunc poly1 = new PolyFunc(coef1);
 
-		int[] coef2 = {2, 1, 1};
+		int[] coef2 = {-2, -1, 1};
 		PolyFunc poly2 = new PolyFunc(coef2);
 
-		
+		System.out.println(poly1.findRoot(0, 100, EPSILON));
+        System.out.println(poly2.findRoot(0, 100, EPSILON));
+
+        System.out.println("");
 	}
 }
