@@ -19,6 +19,12 @@ public class Board {
         this.placeBombs();
     }
 
+    /**
+     * Creates the game board consisting of a two dimensional array.
+     * Also sets the class variables of number of bombs and debugging variables.
+     *
+     * @param difficulty the desired difficulty of the game checked against constants
+     */
     public void makeBoard(int difficulty){
         switch(difficulty){
             case EASY:
@@ -54,6 +60,11 @@ public class Board {
         }
     }
 
+    /**
+     * pints the board to the command line. Used for the CLI version of the game.
+     *
+     * TODO impliment a formatted version of the printout that prints the board within a numbered grid
+     */
     public void printBoard(){
         int bombCount = 0;
         for(int i = 0; i < board.length; i++){
@@ -70,6 +81,9 @@ public class Board {
         System.out.println("bomb count of level is " + bombCount);
     }
 
+    /**
+     * Places the desired number of bombs on random squares of the board.
+     */
     public void placeBombs(){
         for(int i = 0; i < this.bombs; i++){
             Random random = new Random();
