@@ -31,6 +31,22 @@ public class Board {
         return tiles[r][c];
     }
 
+    public void setFlag(int r, int c){
+        tiles[r][c].setFlag(true);
+    }
+
+    public void removeFlag(int r, int c){
+        tiles[r][c].setFlag(false);
+    }
+
+    public void setCover(int r, int c){
+        tiles[r][c].setCover(true);
+    }
+
+    public void removeCover(int r, int c){
+        tiles[r][c].setCover(false);
+    }
+
     /**
      * Creates the game tiles consisting of a two dimensional array.
      * Also sets the class variables of number of bombs and debugging variables.
@@ -82,10 +98,14 @@ public class Board {
         for(int i = 0; i < tiles.length; i++){
             for(int j = 0; j < tiles[i].length; j++){
                 if (tiles[i][j].isBomb()) {
-                    System.out.print("B" + " ");
+                    System.out.print("B ");
                     bombCount++;
+                } else if(tiles[i][j].isFlag()){
+                    System.out.print("F ");
+                } else if(!tiles[i][j].isCover()){
+                    System.out.print("O ");
                 } else {
-                    System.out.print("X" + " ");
+                    System.out.print("X ");
                 }
             }
             System.out.println();
