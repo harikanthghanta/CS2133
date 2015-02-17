@@ -5,6 +5,7 @@ import java.util.Random;
  */
 
 public class Game {
+    Board gameBoard;
 
     /**
      * Creates the game object used to play, and places the bombs
@@ -12,8 +13,18 @@ public class Game {
      * @param difficulty desired difficulty to pass to makeBoard
      */
     public Game(int difficulty){
-        Board board = new Board(difficulty);
-        board.placeBombs();
-        board.printBoard();
+        makeGameBoard(difficulty);
+    }
+
+    public void printGame(){
+        gameBoard.printBoard();
+    }
+
+    public void makeGameBoard(int difficulty){
+        Board gameBoard = new Board(difficulty);
+    }
+
+    public void printTile(int r, int c){
+        System.out.println(gameBoard.getTile(r, c));
     }
 }

@@ -4,7 +4,7 @@ import java.util.Random;
  * Created by kyle on 2/15/15.
  */
 public class Board {
-    Tile[][] board;
+    Tile[][] tiles;
     int bombs;
     int gameDifficulty;
 
@@ -19,8 +19,20 @@ public class Board {
         this.placeBombs();
     }
 
+    public int getBombs() {
+        return bombs;
+    }
+
+    public Tile[][] getTiles() {
+        return tiles;
+    }
+
+    public Tile getTile(int r, int c){
+        return tiles[r][c];
+    }
+
     /**
-     * Creates the game board consisting of a two dimensional array.
+     * Creates the game tiles consisting of a two dimensional array.
      * Also sets the class variables of number of bombs and debugging variables.
      *
      * @param difficulty the desired difficulty of the game checked against constants
@@ -28,48 +40,48 @@ public class Board {
     public void makeBoard(int difficulty){
         switch(difficulty){
             case EASY:
-                board = new Tile[10][10];
+                tiles = new Tile[10][10];
                 bombs = 5;
                 gameDifficulty = EASY;
                 break;
             case MEDIUM:
-                board = new Tile[10][10];
+                tiles = new Tile[10][10];
                 bombs = 15;
                 gameDifficulty = MEDIUM;
                 break;
             case HARD:
-                board = new Tile[25][25];
+                tiles = new Tile[25][25];
                 bombs = 25;
                 gameDifficulty = HARD;
                 break;
             case BOMBASTIC:
-                board = new Tile[25][25];
+                tiles = new Tile[25][25];
                 bombs = 50;
                 gameDifficulty = BOMBASTIC;
                 break;
             default:
-                board = new Tile[10][10];
+                tiles = new Tile[10][10];
                 bombs = 5;
                 gameDifficulty = EASY;
                 break;
         }
-        for(int r = 0; r < board.length; r++){
-            for(int c = 0; c < board[r].length; c++){
-                board[r][c] = new Tile();
+        for(int r = 0; r < tiles.length; r++){
+            for(int c = 0; c < tiles[r].length; c++){
+                tiles[r][c] = new Tile();
             }
         }
     }
 
     /**
-     * pints the board to the command line. Used for the CLI version of the game.
+     * pints the tiles to the command line. Used for the CLI version of the game.
      *
-     * TODO impliment a formatted version of the printout that prints the board within a numbered grid
+     * TODO impliment a formatted version of the printout that prints the tiles within a numbered grid
      */
     public void printBoard(){
         int bombCount = 0;
-        for(int i = 0; i < board.length; i++){
-            for(int j = 0; j < board[i].length; j++){
-                if (board[i][j].isBomb()) {
+        for(int i = 0; i < tiles.length; i++){
+            for(int j = 0; j < tiles[i].length; j++){
+                if (tiles[i][j].isBomb()) {
                     System.out.print("B" + " ");
                     bombCount++;
                 } else {
@@ -78,20 +90,19 @@ public class Board {
             }
             System.out.println();
         }
-        System.out.println("bomb count of level is " + bombCount);
     }
 
     /**
-     * Places the desired number of bombs on random squares of the board.
+     * Places the desired number of bombs on random squares of the tiles.
      */
     public void placeBombs(){
         for(int i = 0; i < this.bombs; i++){
             Random random = new Random();
-            int r = random.nextInt(board.length);
-            int c = random.nextInt(board[r].length);
+            int r = random.nextInt(tiles.length);
+            int c = random.nextInt(tiles[r].length);
 
-            if(!board[r][c].isBomb()){
-                board[r][c].setBomb(true);
+            if(!tiles[r][c].isBomb()){
+                tiles[r][c].setBomb(true);
             } else {
                 i--;
             }
