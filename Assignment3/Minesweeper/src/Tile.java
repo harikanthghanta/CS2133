@@ -5,6 +5,7 @@ public class Tile {
     private boolean bomb = false;
     private boolean cover = true;
     private boolean flag = false;
+    private int bombsAround = 0;
 
     public Tile(){
         bomb = false;
@@ -17,22 +18,30 @@ public class Tile {
     }
 
     public void setBomb(boolean bombed){
-        bomb = bombed;
+        this.bomb = bombed;
     }
 
     public boolean isCover(){
-        return cover;
+        return this.cover;
     }
 
     public void setCover(boolean covered){
-        cover = covered;
+        this.cover = covered;
     }
 
     public boolean isFlag() {
-        return flag;
+        return this.flag;
     }
 
     public void setFlag(boolean flag) {
         this.flag = flag;
+    }
+
+    public int getBombsAround() {
+        return bombsAround;
+    }
+
+    public void setBombsAround(int bombsAround) {
+        this.bombsAround = bombsAround;
     }
 }

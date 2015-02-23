@@ -94,16 +94,14 @@ public class Board {
      * TODO impliment a formatted version of the printout that prints the tiles within a numbered grid
      */
     public void printBoard(){
-        int bombCount = 0;
         for(int i = 0; i < tiles.length; i++){
             for(int j = 0; j < tiles[i].length; j++){
                 if (tiles[i][j].isBomb()) {
                     System.out.print("B ");
-                    bombCount++;
                 } else if(tiles[i][j].isFlag()){
                     System.out.print("F ");
                 } else if(!tiles[i][j].isCover()){
-                    System.out.print("O ");
+                    System.out.print(tiles[i][j].getBombsAround() + " ");
                 } else {
                     System.out.print("X ");
                 }
@@ -125,6 +123,41 @@ public class Board {
                 tiles[r][c].setBomb(true);
             } else {
                 i--;
+            }
+        }
+    }
+
+    public void clearBombsAround(){
+        for (int r = 0; r < this.tiles.length; r++){
+            for (int c = 0; c < this.tiles[r].length; c++){
+                this.tiles[r][c].setBombsAround(0);
+            }
+        }
+    }
+
+    public void findBombsAround(){
+        clearBombsAround();
+
+        //loop through all the tiles
+        for(int row = 0; row < this.tiles.length; row++){
+            for(int col = 0; col < this.tiles[row].length; col++){
+                //if we find a bomb, mak the tiles around it
+                if(!this.tiles[row][col].isBomb()){
+                    int count = 0;
+
+                    //loop through all the tiles adjacent to the bomb
+                    //TODO refactor this as a new method to clear all the tiles around the one clicked
+                    for(int x = row - 1; x <= row + 1; x++){
+                        for(int y = col - 1; y <= col + 1; y++){
+                            if(x >= 0 && x < tiles.length && y >= 0 && y < tiles[row].length){
+                                if(tiles[x][y].isBomb()){
+                                    count++;
+                                }
+                            }
+                        }
+                    }
+                    tiles[row][col].setBombsAround(count);
+                }
             }
         }
     }

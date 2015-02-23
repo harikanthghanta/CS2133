@@ -36,15 +36,23 @@ public class Game {
         } else if(gameBoard.tiles[r][c].isCover()){
             this.gameBoard.removeCover(r, c);
         }
+        moveTaken();
+    }
+
+    public void testBomb(int r, int c){
+        this.gameBoard.tiles[r][c].setBomb(true);
     }
 
     public void moveTaken(){
+        this.gameBoard.findBombsAround();
         this.movesTaken++;
+        printGame();
     }
 
     public void printGame(){
-        System.out.println("Move: " + this.movesTaken + "\n-------------------\n");
+        System.out.println("Move: " + this.movesTaken + "\n-------------------");
         gameBoard.printBoard();
+        System.out.println();
     }
 
     public Board makeGameBoard(int difficulty){
