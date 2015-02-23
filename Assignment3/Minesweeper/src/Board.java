@@ -161,4 +161,18 @@ public class Board {
             }
         }
     }
+
+    public void findClearSpacesAround(int row, int col){
+        //loop through all the tiles adjacent to the bomb
+        //TODO refactor this as a new method to clear all the tiles around the one clicked
+        for(int x = row - 1; x <= row + 1; x++){
+            for(int y = col - 1; y <= col + 1; y++){
+                if(x >= 0 && x < tiles.length && y >= 0 && y < tiles[row].length){
+                    if(!tiles[x][y].isBomb()){
+                        tiles[x][y].setCover(false);
+                    }
+                }
+            }
+        }
+    }
 }

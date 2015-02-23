@@ -35,12 +35,17 @@ public class Game {
             System.exit(0);
         } else if(gameBoard.tiles[r][c].isCover()){
             this.gameBoard.removeCover(r, c);
+            this.gameBoard.findClearSpacesAround(r, c);
         }
         moveTaken();
     }
 
     public void testBomb(int r, int c){
         this.gameBoard.tiles[r][c].setBomb(true);
+    }
+
+    public void clearBomb(int r, int c){
+        this.gameBoard.tiles[r][c].setBomb(false);
     }
 
     public void moveTaken(){
