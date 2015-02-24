@@ -1,3 +1,5 @@
+package Model;
+
 import java.util.Random;
 
 /**
@@ -162,15 +164,13 @@ public class Board {
         }
     }
 
-    public void clearSpacesAround(int row, int col){
+    public void clearSpacesAround(int row, int col) {
         for(int x = row - 1; x <= row + 1; x++){
             for(int y = col - 1; y <= col + 1; y++){
                 if(x >= 0 && x < tiles.length && y >= 0 && y < tiles[row].length){
-                    if(tiles[x][y].isBomb()){
-                       break;
-                    } else {
+                    if(!tiles[x][y].isBomb() && tiles[x][y].isCover()){
                         tiles[x][y].setCover(false);
-
+                        clearSpacesAround(x, y);
                     }
                 }
             }
