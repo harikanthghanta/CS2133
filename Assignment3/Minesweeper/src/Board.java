@@ -89,7 +89,8 @@ public class Board {
     }
 
     /**
-     * pints the tiles to the command line. Used for the CLI version of the game.
+     * Prints the tiles to the command line. Used for the CLI version of the game.
+     * Currently this prints a new board each time, also not formatted very well.
      *
      * TODO impliment a formatted version of the printout that prints the tiles within a numbered grid
      */
@@ -127,6 +128,9 @@ public class Board {
         }
     }
 
+    /**
+     * method that sets the bombs around to 0, probably not needed anymore
+     */
     public void clearBombsAround(){
         for (int r = 0; r < this.tiles.length; r++){
             for (int c = 0; c < this.tiles[r].length; c++){
@@ -135,6 +139,10 @@ public class Board {
         }
     }
 
+    /**
+     * Loops through all the tiles of the board, then every tile adjacent to that tile counting the bombs.
+     * Then sets the bombsAround attribute of the current tile to the count of the bomb.
+     */
     public void findBombsAround(){
         clearBombsAround();
 
@@ -146,7 +154,6 @@ public class Board {
                     int count = 0;
 
                     //loop through all the tiles adjacent to the bomb
-                    //TODO refactor this as a new method to clear all the tiles around the one clicked
                     for(int x = row - 1; x <= row + 1; x++){
                         for(int y = col - 1; y <= col + 1; y++){
                             if(x >= 0 && x < tiles.length && y >= 0 && y < tiles[row].length){
@@ -162,10 +169,20 @@ public class Board {
         }
     }
 
+    /**
+     * Recursive method to clear all the spaces around the tile clicked
+     *
+     * @param row the row of the tile to clear
+     * @param col the column of the tile to clear
+     */
     public void clearSpacesAround(int row, int col) {
+        //loop through adjacent tiles to the one passed in
         for(int x = row - 1; x <= row + 1; x++){
             for(int y = col - 1; y <= col + 1; y++){
+                //make sure the adjacent tile is in the bounds of the game board
                 if(x >= 0 && x < tiles.length && y >= 0 && y < tiles[row].length){
+                    //if the tile isn't a bomb and is covered, uncover the tile and make a recursive call
+                    //this is important so we don't call the method on covered tiles, which makes this method much more likely to result in a StackOverflow
                     if(!tiles[x][y].isBomb() && tiles[x][y].isCover()){
                         tiles[x][y].setCover(false);
                         clearSpacesAround(x, y);

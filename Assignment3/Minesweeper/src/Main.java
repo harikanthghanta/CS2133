@@ -4,6 +4,8 @@ public class Main {
         Game game1 = new Game(1);
         game1.printGame();
 
+        MineFrame mineFrame = new MineFrame(game1);
+
         game1.flagTile(1, 1);
 
 
@@ -17,6 +19,8 @@ public class Main {
 
         game1.clickTile(0, 0);
 
+        mineFrame.repaint();
+
         game1.clearBomb(0 ,9);
         game1.clearBomb(1 ,9);
         game1.clearBomb(0 ,8);
@@ -24,7 +28,7 @@ public class Main {
 
         game1.clickTile(0, 9);
 
-        MineFrame mineFrame = new MineFrame(game1);
+        //MineFrame mineFrame = new MineFrame(game1);
 
         //Game test = new Game(4);
         //MineFrame mineFrame = new MineFrame(test.gameBoard);
