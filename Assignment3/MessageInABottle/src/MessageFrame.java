@@ -10,6 +10,9 @@ public class MessageFrame extends JFrame {
     private final int WINDOW_HEIGHT = 900;
     private final int WINDOW_WIDTH = 500;
 
+    /**
+     * Constructor for this class that opens a frame containing the MessagePanel
+     */
     public MessageFrame(){
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setTitle(TITLE);

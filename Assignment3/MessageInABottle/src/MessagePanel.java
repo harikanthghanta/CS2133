@@ -6,9 +6,14 @@ import java.awt.*;
  */
 public class MessagePanel extends JPanel {
 
+    /**
+     * Overridden paintComponent that draws a fixed size bottle with a message inside
+     *
+     * @param g graphics object used to draw the bottle and message
+     */
+    @Override
     public void paintComponent(Graphics g){
         Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Dimension dimension = toolkit.getScreenSize();
 
         super.paintComponent(g);
 
