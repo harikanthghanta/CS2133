@@ -7,12 +7,20 @@ import java.awt.*;
 public class MinePanel extends JPanel {
     JButton buttons[][];
 
-    MinePanel(Board board){
-        buttons = new JButton[board.tiles.length][board.tiles.length];
-        setLayout(new GridLayout(board.tiles.length, board.tiles.length));
-        for(int i = 0; i < board.tiles.length; i++){
-            for(int j = 0; j < board.tiles.length; j++){
-                JButton button = new JButton("Button " + i + ", " + j);
+    MinePanel(Game game){
+        buttons = new JButton[game.gameBoard.tiles.length][game.gameBoard.tiles.length];
+        setLayout(new GridLayout(game.gameBoard.tiles.length, game.gameBoard.tiles.length));
+        for(int i = 0; i < game.gameBoard.tiles.length; i++){
+            for(int j = 0; j < game.gameBoard.tiles.length; j++){
+                JButton button;
+                if(!game.gameBoard.tiles[i][j].isCover()){
+                    button = new JButton("" + game.gameBoard.tiles[i][j].getBombsAround());
+                } else if(game.gameBoard.tiles[i][j].isFlag()){
+                    button = new JButton("F");
+                } else {
+                    button = new JButton("X");
+                }
+
                 buttons[i][j] = button;
             }
         }

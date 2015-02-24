@@ -24,6 +24,9 @@ public class Main {
 
         game1.clickTile(0, 9);
 
-        MineFrame mineFrame = new MineFrame(game1.gameBoard);
+        MineFrame mineFrame = new MineFrame(game1);
+
+        //Game test = new Game(4);
+        //MineFrame mineFrame = new MineFrame(test.gameBoard);
     }
 }
