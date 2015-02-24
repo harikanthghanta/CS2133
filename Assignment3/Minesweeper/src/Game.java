@@ -1,5 +1,3 @@
-package Model;
-
 /**
  * Created by kyle on 2/13/15.
  */
@@ -31,7 +29,7 @@ public class Game {
 
     public void clickTile(int r, int c){
         if(gameBoard.tiles[r][c].isBomb()){
-            System.out.println("Model.Game Over");
+            System.out.println("Game Over");
             System.exit(0);
         } else if(gameBoard.tiles[r][c].isCover()){
             this.gameBoard.removeCover(r, c);

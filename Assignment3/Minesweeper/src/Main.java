@@ -1,5 +1,3 @@
-import Model.Game;
-
 public class Main {
 
     public static void main(String[] args) {
@@ -25,5 +23,7 @@ public class Main {
         game1.clearBomb(1 ,8);
 
         game1.clickTile(0, 9);
+
+        MineFrame mineFrame = new MineFrame(game1.gameBoard);
     }
 }

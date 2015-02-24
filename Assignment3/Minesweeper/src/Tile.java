@@ -1,5 +1,3 @@
-package Model;
-
 /**
  * Created by kyle on 2/15/15.
  */
