@@ -35,7 +35,7 @@ public class Game {
             System.exit(0);
         } else if(gameBoard.tiles[r][c].isCover()){
             this.gameBoard.removeCover(r, c);
-            this.gameBoard.findClearSpacesAround(r, c);
+            this.gameBoard.clearSpacesAround(r, c);
         }
         moveTaken();
     }
