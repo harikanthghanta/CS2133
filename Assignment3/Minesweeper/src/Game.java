@@ -18,13 +18,10 @@ public class Game {
     public void flagTile(int r, int c){
         if(gameBoard.tiles[r][c].isFlag()){
             gameBoard.removeFlag(r, c);
-            moveTaken();
         } else if(!gameBoard.tiles[r][c].isFlag()){
             gameBoard.setFlag(r, c);
-            moveTaken();
-        } else {
-            System.out.println("Null tile");
         }
+        moveTaken();
     }
 
     public void clickTile(int r, int c){
@@ -49,6 +46,7 @@ public class Game {
     public void moveTaken(){
         this.gameBoard.findBombsAround();
         this.movesTaken++;
+        gameBoard.checkWinner();
         printGame();
     }
 

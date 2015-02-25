@@ -41,11 +41,13 @@ public class ScorePanel extends JPanel {
         this.moves = moves;
     }
 
+    /*
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        bombsRemaining.setText("Bombs Remaining: " + bombs);
-        movesTaken.setText("Moves Taken: " + moves);
+        //bombsRemaining.setText("Bombs Remaining: " + bombs);
+        //movesTaken.setText("Moves Taken: " + moves);
         repaint();
     }
+    */
 }

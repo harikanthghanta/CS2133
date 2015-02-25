@@ -191,4 +191,19 @@ public class Board {
             }
         }
     }
+
+    public void checkWinner(){
+        int counter = 0;
+        for(int row = 0; row < this.tiles.length; row++) {
+            for(int col = 0; col < this.tiles[row].length; col++) {
+                if(tiles[row][col].isBomb() && tiles[row][col].isFlag()){
+                    counter++;
+                }
+            }
+        }
+        if(counter == bombs){
+            System.out.println("Winner");
+            System.exit(0);
+        }
+    }
 }
