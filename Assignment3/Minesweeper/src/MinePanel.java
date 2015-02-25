@@ -21,6 +21,8 @@ public class MinePanel extends JPanel {
                     button = new JButton("X");
                 }
 
+                button.setToolTipText(i + ", " + j);
+
                 buttons[i][j] = button;
             }
         }
