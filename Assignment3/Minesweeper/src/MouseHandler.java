@@ -8,8 +8,6 @@ import java.awt.event.MouseEvent;
 public class MouseHandler extends MouseAdapter {
     Game game;
     JButton[][] buttons;
-    MinePanel minePanel;
-    ScorePanel scorePanel;
 
     public MouseHandler(Game game, JButton[][] buttons){
         this.game = game;
@@ -25,7 +23,9 @@ public class MouseHandler extends MouseAdapter {
         int row = Integer.parseInt(getParams[0]);
         int col = Integer.parseInt(getParams[1]);
 
-        System.out.println(row + ", " + col);
+        //TODO change action based on left and right click
+        //TODO take action on specific tile based on click location
 
+        System.out.println(row + ", " + col);
     }
 }
