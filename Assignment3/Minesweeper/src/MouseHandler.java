@@ -8,10 +8,12 @@ import java.awt.event.MouseEvent;
 public class MouseHandler extends MouseAdapter {
     Game game;
     JButton[][] buttons;
+    MinePanel minePanel;
 
-    public MouseHandler(Game game, JButton[][] buttons){
+    public MouseHandler(Game game, JButton[][] buttons, MinePanel minePanel){
         this.game = game;
         this.buttons = buttons;
+        this.minePanel = minePanel;
     }
 
     @Override
@@ -26,6 +28,13 @@ public class MouseHandler extends MouseAdapter {
         //TODO change action based on left and right click
         //TODO take action on specific tile based on click location
 
+        if(SwingUtilities.isLeftMouseButton(e)){
+            game.clickTile(row, col);
+        } else if(SwingUtilities.isRightMouseButton(e)){
+            game.flagTile(row, col);
+        }
+
+        minePanel.repaint();
         System.out.println(row + ", " + col);
     }
 }
