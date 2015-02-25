@@ -23,6 +23,8 @@ public class MinePanel extends JPanel {
 
                 button.setToolTipText(i + ", " + j);
 
+                button.addMouseListener(new MouseHandler(game, buttons));
+
                 buttons[i][j] = button;
             }
         }
