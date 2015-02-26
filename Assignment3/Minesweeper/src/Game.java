@@ -6,6 +6,7 @@ public class Game {
     Board gameBoard;
     int movesTaken = 0;
     int bombsRemaining = 0;
+    boolean isWinner = false;
 
     /**
      * Creates the game object used to play, and places the bombs
@@ -14,6 +15,12 @@ public class Game {
      */
     public Game(int difficulty){
         this.gameBoard = makeGameBoard(difficulty);
+    }
+
+    public void newGame(int difficulty){
+        this.gameBoard = makeGameBoard(difficulty);
+        this.calculateBombsRemaining();
+        this.movesTaken = 0;
     }
 
     public void flagTile(int r, int c){
@@ -48,7 +55,7 @@ public class Game {
         this.gameBoard.findBombsAround();
         this.movesTaken++;
         calculateBombsRemaining();
-        gameBoard.checkWinner();
+        isWinner = gameBoard.checkWinner();
         printGame();
     }
 

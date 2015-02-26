@@ -10,8 +10,6 @@ public class ScorePanel extends JPanel {
     private JLabel bombsRemaining, movesTaken, bombImage;
     private int bombs, moves;
     private Image im;
-    Timer timer;
-    long time;
 
     Game game;
 
@@ -19,23 +17,6 @@ public class ScorePanel extends JPanel {
         this.game = game;
         bombs = game.gameBoard.bombs;
         moves = game.movesTaken;
-
-
-        /*
-        // timer stuff
-        time = 0L;
-        int delay = 1000;
-
-        ActionListener timeCounter = new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                repaint();
-                time++;
-            }
-        };
-
-        timer = new Timer(delay, timeCounter);
-        timer.start();
-        */
 
         bombsRemaining = new JLabel("Bombs Remaining: " + game.gameBoard.bombs);
         movesTaken = new JLabel("Moves Taken: " + game.movesTaken);

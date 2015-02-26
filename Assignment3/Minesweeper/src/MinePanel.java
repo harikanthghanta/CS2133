@@ -7,9 +7,11 @@ import java.awt.*;
 public class MinePanel extends JPanel {
     JButton buttons[][];
     Game game;
+    MineFrame mineFrame;
 
-    MinePanel(Game game){
+    MinePanel(Game game, MineFrame mineFrame){
         this.game = game;
+        this.mineFrame = mineFrame;
 
         buttons = new JButton[game.gameBoard.tiles.length][game.gameBoard.tiles.length];
         setLayout(new GridLayout(game.gameBoard.tiles.length, game.gameBoard.tiles.length));
@@ -27,7 +29,7 @@ public class MinePanel extends JPanel {
 
                 button.setToolTipText(i + ", " + j);
 
-                button.addMouseListener(new MouseHandler(game, buttons, this));
+                button.addMouseListener(new MouseHandler(game, buttons, this, mineFrame));
 
                 buttons[i][j] = button;
             }

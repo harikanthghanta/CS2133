@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -12,7 +13,7 @@ public class Board {
     public static final int EASY = 1;
     public static final int MEDIUM = 2;
     public static final int HARD = 3;
-    public static final int BOMBASTIC = 4;
+    public static final int BOMBASTIC = 4;//Lol if Cr1ck will even think this is a good idea XDDDDDDDDDDDDDDDDD
 
     public Board(int gameDifficulty) {
         makeBoard(gameDifficulty);
@@ -192,7 +193,7 @@ public class Board {
         }
     }
 
-    public void checkWinner(){
+    public boolean checkWinner(){
         int counter = 0;
         for(int row = 0; row < this.tiles.length; row++) {
             for(int col = 0; col < this.tiles[row].length; col++) {
@@ -203,7 +204,9 @@ public class Board {
         }
         if(counter == bombs){
             System.out.println("Winner");
-            System.exit(0);
+            return true;
+        } else {
+            return false;
         }
     }
 }
