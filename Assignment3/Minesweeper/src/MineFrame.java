@@ -58,8 +58,8 @@ public class MineFrame extends JFrame {
                 break;
         }
 
-        minePanel = new MinePanel(game);
         scorePanel = new ScorePanel(game);
+        minePanel = new MinePanel(game);
 
         container.add(scorePanel, BorderLayout.NORTH);
         container.add(minePanel, BorderLayout.CENTER);

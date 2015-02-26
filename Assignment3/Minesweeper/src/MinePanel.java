@@ -10,6 +10,7 @@ public class MinePanel extends JPanel {
 
     MinePanel(Game game){
         this.game = game;
+
         buttons = new JButton[game.gameBoard.tiles.length][game.gameBoard.tiles.length];
         setLayout(new GridLayout(game.gameBoard.tiles.length, game.gameBoard.tiles.length));
         for(int i = 0; i < game.gameBoard.tiles.length; i++){
@@ -41,14 +42,18 @@ public class MinePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for(int i = 0; i < game.gameBoard.tiles.length; i++) {
-            for (int j = 0; j < game.gameBoard.tiles.length; j++) {
-                if(!game.gameBoard.tiles[i][j].isCover()){
-                    buttons[i][j].setText(" ");
-                } else if(game.gameBoard.tiles[i][j].isFlag()){
-                    buttons[i][j].setText("F");
-                } else {
-                    buttons[i][j].setText("X");
+        if(game.movesTaken > 0) {
+            for (int i = 0; i < game.gameBoard.tiles.length; i++) {
+                for (int j = 0; j < game.gameBoard.tiles.length; j++) {
+                    if (game.gameBoard.tiles[i][j].isFlag()) { //
+                        buttons[i][j].setText("F");
+                    } else if (game.gameBoard.tiles[i][j].getBombsAround() == 0) {
+                        buttons[i][j].setText(" ");
+                    } else if (!game.gameBoard.tiles[i][j].isCover() && game.gameBoard.tiles[i][j].getBombsAround() != 0) {
+                        buttons[i][j].setText("" + game.gameBoard.tiles[i][j].getBombsAround());
+                    } else {
+                        buttons[i][j].setText("X");
+                    }
                 }
             }
         }

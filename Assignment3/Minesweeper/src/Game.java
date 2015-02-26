@@ -5,6 +5,7 @@
 public class Game {
     Board gameBoard;
     int movesTaken = 0;
+    int bombsRemaining = 0;
 
     /**
      * Creates the game object used to play, and places the bombs
@@ -46,6 +47,7 @@ public class Game {
     public void moveTaken(){
         this.gameBoard.findBombsAround();
         this.movesTaken++;
+        calculateBombsRemaining();
         gameBoard.checkWinner();
         printGame();
     }
@@ -62,5 +64,18 @@ public class Game {
 
     public void printTile(int r, int c){
         System.out.println(gameBoard.getTile(r, c));
+    }
+
+    public void calculateBombsRemaining(){
+        int temp = 0;
+        for(int row = 0; row < this.gameBoard.tiles.length; row++) {
+            for (int col = 0; col < this.gameBoard.tiles[row].length; col++) {
+                if(this.gameBoard.tiles[row][col].isBomb() && this.gameBoard.tiles[row][col].isFlag()){
+                    temp++;
+                }
+            }
+        }
+
+        bombsRemaining = gameBoard.bombs - temp;
     }
 }

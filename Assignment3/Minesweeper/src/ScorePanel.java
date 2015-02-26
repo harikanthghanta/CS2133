@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by kyle on 2/24/15.
@@ -8,10 +10,32 @@ public class ScorePanel extends JPanel {
     private JLabel bombsRemaining, movesTaken, bombImage;
     private int bombs, moves;
     private Image im;
+    Timer timer;
+    long time;
+
+    Game game;
 
     ScorePanel(Game game){
+        this.game = game;
         bombs = game.gameBoard.bombs;
         moves = game.movesTaken;
+
+
+        /*
+        // timer stuff
+        time = 0L;
+        int delay = 1000;
+
+        ActionListener timeCounter = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                repaint();
+                time++;
+            }
+        };
+
+        timer = new Timer(delay, timeCounter);
+        timer.start();
+        */
 
         bombsRemaining = new JLabel("Bombs Remaining: " + game.gameBoard.bombs);
         movesTaken = new JLabel("Moves Taken: " + game.movesTaken);
@@ -41,13 +65,17 @@ public class ScorePanel extends JPanel {
         this.moves = moves;
     }
 
-    /*
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        //bombsRemaining.setText("Bombs Remaining: " + bombs);
-        //movesTaken.setText("Moves Taken: " + moves);
+
+        bombsRemaining.setText("Bombs Remaining: " + game.bombsRemaining);
+        movesTaken.setText("Moves Taken: " + game.movesTaken);
+
+        invalidate();
+        validate();
         repaint();
     }
-    */
+
 }
