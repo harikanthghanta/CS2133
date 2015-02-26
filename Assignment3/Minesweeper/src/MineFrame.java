@@ -1,14 +1,19 @@
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * Created by kyle on 2/23/15.
  */
 public class MineFrame extends JFrame {
+    private static long serialVersionUID = -5061264484551653426L;
+
     public final String TITLE = "Minesweeper";
     public final int HEIGHT = 800;
     public final int WIDTH = 800;
@@ -23,6 +28,8 @@ public class MineFrame extends JFrame {
     public static final int MEDIUM = 2;
     public static final int HARD = 3;
     public static final int BOMBASTIC = 4;
+    public static final int SAVE = 100;
+    public static final int LOAD = 101;
 
     MineFrame(){
         setTitle(TITLE);
@@ -74,8 +81,6 @@ public class MineFrame extends JFrame {
         mainContainer = new Container();
         mainContainer.setLayout(new BorderLayout());
 
-
-
         mainContainer.add(scorePanel, BorderLayout.NORTH);
         mainContainer.add(minePanel, BorderLayout.CENTER);
 
@@ -110,40 +115,56 @@ public class MineFrame extends JFrame {
         int difficlty = JOptionPane.showOptionDialog(null, message, "New Game", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, imageIcon, setValue, setValue[1]);
 
         switch (difficlty){
-            case 0:
+            case EASY:
                 System.out.println("EASY");
                 game.newGame(EASY);
                 break;
-            case 1:
+            case MEDIUM:
                 System.out.println("MEDIUM");
                 game.newGame(MEDIUM);
                 break;
-            case 2:
+            case HARD:
                 System.out.println("HARD");
                 game.newGame(HARD);
                 break;
-            case 3:
+            case BOMBASTIC:
                 System.out.println("BOMBASTIC");
                 game.newGame(BOMBASTIC);
                 break;
-            case 4:
-                System.exit(0);
             default:
                 System.out.println("EASY");
                 game.newGame(EASY);
                 break;
         }
 
-        mainContainer.remove(scorePanel);
-        mainContainer.remove(minePanel);
+        refreshGame();
+    }
 
-        scorePanel = new ScorePanel(game);
-        minePanel = new MinePanel(game, this);
+    public void newGame(int difficulty){
+        switch (difficulty){
+            case EASY:
+                System.out.println("EASY");
+                game.newGame(EASY);
+                break;
+            case MEDIUM:
+                System.out.println("MEDIUM");
+                game.newGame(MEDIUM);
+                break;
+            case HARD:
+                System.out.println("HARD");
+                game.newGame(HARD);
+                break;
+            case BOMBASTIC:
+                System.out.println("BOMBASTIC");
+                game.newGame(BOMBASTIC);
+                break;
+            default:
+                System.out.println("EASY");
+                game.newGame(EASY);
+                break;
+        }
 
-        mainContainer.add(scorePanel, BorderLayout.NORTH);
-        mainContainer.add(minePanel, BorderLayout.CENTER);
-
-        setVisible(true);
+        refreshGame();
     }
 
     //TODO finish this menu
@@ -151,18 +172,115 @@ public class MineFrame extends JFrame {
         JMenuBar jMenuBar = new JMenuBar();
 
         JMenu fileMenu = new JMenu("File");
-        JMenu gameMemu = new JMenu("Game");
+        JMenu gameMenu = new JMenu("Game");
+
+        JMenuItem easyItem = new JMenuItem("EASY");
+        JMenuItem mediumItem = new JMenuItem("MEDIUM");
+        JMenuItem hardItem = new JMenuItem("HARD");
+        JMenuItem bombasticItem = new JMenuItem("BOMBASTIC");
+
+        easyItem.addActionListener(new MenuListener(EASY));
+        mediumItem.addActionListener(new MenuListener(MEDIUM));
+        hardItem.addActionListener(new MenuListener(HARD));
+        bombasticItem.addActionListener(new MenuListener(BOMBASTIC));
+
+        JMenuItem saveGame = new JMenuItem("SAVE");
+        JMenuItem loadGame = new JMenuItem("LOAD");
+
+        saveGame.addActionListener(new MenuListener(SAVE));
+        loadGame.addActionListener(new MenuListener(LOAD));
+
+        fileMenu.add(saveGame);
+        fileMenu.add(loadGame);
+
+        gameMenu.add(easyItem);
+        gameMenu.add(mediumItem);
+        gameMenu.add(hardItem);
+        gameMenu.add(bombasticItem);
 
         jMenuBar.add(fileMenu);
-        jMenuBar.add(gameMemu);
+        jMenuBar.add(gameMenu);
 
         return jMenuBar;
     }
 
     private class MenuListener implements ActionListener {
+        int action;
+
+        MenuListener(int action){
+            this.action = action;
+        }
+
         public void actionPerformed(ActionEvent e) {
+            switch (action){
+                case EASY:
+                    System.out.println("EASY");
+                    newGame(EASY);
+                    break;
+                case MEDIUM:
+                    newGame(MEDIUM);
+                    System.out.println("MEDIUM");
+                    break;
+                case HARD:
+                    newGame(HARD);
+                    System.out.println("HARD");
+                    break;
+                case BOMBASTIC:
+                    newGame(BOMBASTIC);
+                    System.out.println("BOMBASTIC");
+                    break;
+                case SAVE:
+                    fileOptions(SAVE);
+                    System.out.println("SAVE");
+                    break;
+                case LOAD:
+                    fileOptions(LOAD);
+                    System.out.println("LOAD");
+                    break;
+                default:
+                    System.out.println("ERROR");
+                    break;
+            }
 
         }
+    }
+
+
+    //TODO handle the user canceling the file dialog
+    public void fileOptions(int action){
+        if(action == SAVE){
+            String filePath = "";
+            JFileChooser jFileChooser = new JFileChooser();
+            jFileChooser.showSaveDialog(null);
+            filePath = jFileChooser.getSelectedFile().getPath();
+            game.saveGame(filePath);
+            refreshGame();
+        } else if(action == LOAD){
+            String filePath = "";
+            JFileChooser jFileChooser = new JFileChooser();
+            jFileChooser.showOpenDialog(null);
+            filePath = jFileChooser.getSelectedFile().getPath();
+            game.loadGame(filePath);
+            refreshGame();
+        }
+    }
+
+    public void refreshGame(){
+        mainContainer.remove(scorePanel);
+        mainContainer.remove(minePanel);
+
+        scorePanel = new ScorePanel(game);
+        scorePanel.game = this.game;
+        scorePanel.paintComponent(getGraphics());
+
+        minePanel = new MinePanel(game, this);
+        minePanel.game = this.game;
+        minePanel.paintComponent(getGraphics());
+
+        mainContainer.add(scorePanel, BorderLayout.NORTH);
+        mainContainer.add(minePanel, BorderLayout.CENTER);
+
+        setVisible(true);
     }
 
     public void setScoreMoves(int x){

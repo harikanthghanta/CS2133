@@ -6,6 +6,8 @@ import java.util.Random;
  * Created by kyle on 2/15/15.
  */
 public class Board implements Serializable {
+    private static long serialVersionUID = -5061264484551653426L;
+
     Tile[][] tiles;
     int bombs;
     int gameDifficulty;

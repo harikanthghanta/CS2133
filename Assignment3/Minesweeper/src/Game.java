@@ -5,6 +5,8 @@ import java.io.*;
  */
 
 public class Game implements Serializable {
+    private static long serialVersionUID = -5061264484551653426L;
+
     Board gameBoard;
     int movesTaken = 0;
     int bombsRemaining = 0;
@@ -50,11 +52,13 @@ public class Game implements Serializable {
     }
 
     public void loadGame(String filePath){
-        Game game = null;
+        Game temp = null;
         try {
             ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(new File(filePath)));
-            game = (Game) inputStream.readObject();
-
+            temp = (Game) inputStream.readObject();
+            this.gameBoard = temp.gameBoard;
+            this.movesTaken = temp.movesTaken;
+            this.bombsRemaining = temp.bombsRemaining;
         } catch (FileNotFoundException e){
             e.printStackTrace();
         } catch (IOException e){
