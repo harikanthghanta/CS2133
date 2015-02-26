@@ -96,7 +96,6 @@ public class Board implements Serializable {
      * Prints the tiles to the command line. Used for the CLI version of the game.
      * Currently this prints a new board each time, also not formatted very well.
      *
-     * TODO impliment a formatted version of the printout that prints the tiles within a numbered grid
      */
     public void printBoard(){
         for(int i = 0; i < tiles.length; i++){

@@ -248,7 +248,6 @@ public class MineFrame extends JFrame {
         }
     }
 
-    //TODO handle the user canceling the file dialog
     public void fileOptions(int action){
         if(action == SAVE){
             String filePath = "";

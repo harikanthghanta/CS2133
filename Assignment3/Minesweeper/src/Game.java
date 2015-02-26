@@ -28,18 +28,6 @@ public class Game implements Serializable {
         this.movesTaken = 0;
     }
 
-    public void saveGame(){
-        String filePath = "~/";
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(new File(filePath)));
-            outputStream.writeObject(this);
-            outputStream.flush();
-            outputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void saveGame(String filePath) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(new File(filePath)));
