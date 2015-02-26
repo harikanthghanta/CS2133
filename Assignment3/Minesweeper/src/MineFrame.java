@@ -104,15 +104,19 @@ public class MineFrame extends JFrame {
         Object[] setValue = {"EASY", "MEDIUM", "HARD", "BOMBASTIC", "QUIT"};
 
         String message = "";
+        String title = "";
         if(won){
+            title = "Winner!";
             message = "You win! Pick a difficulty to start a new game.";
         } else if(!won){
+            title = "Loser!";
             message = "Pick a difficulty to start a new game, or maybe just quit";
         } else {
+            title = "New Game";
             message = "Pick a difficulty to start a new game.";
         }
 
-        int difficlty = JOptionPane.showOptionDialog(null, message, "New Game", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, imageIcon, setValue, setValue[1]);
+        int difficlty = JOptionPane.showOptionDialog(null, message, title, JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, imageIcon, setValue, setValue[1]);
 
         switch (difficlty){
             case EASY:
@@ -167,7 +171,6 @@ public class MineFrame extends JFrame {
         refreshGame();
     }
 
-    //TODO finish this menu
     private JMenuBar getMenu(){
         JMenuBar jMenuBar = new JMenuBar();
 
@@ -245,23 +248,30 @@ public class MineFrame extends JFrame {
         }
     }
 
-
     //TODO handle the user canceling the file dialog
     public void fileOptions(int action){
         if(action == SAVE){
             String filePath = "";
             JFileChooser jFileChooser = new JFileChooser();
-            jFileChooser.showSaveDialog(null);
-            filePath = jFileChooser.getSelectedFile().getPath();
-            game.saveGame(filePath);
-            refreshGame();
+            int returnVal = jFileChooser.showSaveDialog(null);
+            if(returnVal == JFileChooser.APPROVE_OPTION){
+                filePath = jFileChooser.getSelectedFile().getPath();
+                game.saveGame(filePath);
+                refreshGame();
+            } else {
+                System.out.println("Save canceled");
+            }
         } else if(action == LOAD){
             String filePath = "";
             JFileChooser jFileChooser = new JFileChooser();
-            jFileChooser.showOpenDialog(null);
-            filePath = jFileChooser.getSelectedFile().getPath();
-            game.loadGame(filePath);
-            refreshGame();
+            int returnVal = jFileChooser.showOpenDialog(null);
+            if(returnVal == JFileChooser.APPROVE_OPTION){
+                filePath = jFileChooser.getSelectedFile().getPath();
+                game.loadGame(filePath);
+                refreshGame();
+            } else {
+                System.out.println("Load canceled");
+            }
         }
     }
 

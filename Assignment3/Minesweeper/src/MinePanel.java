@@ -25,6 +25,8 @@ public class MinePanel extends JPanel {
                     repaint();
                 } else {
                     button = new JButton("X");
+                    button.setBackground(Color.black);
+                    button.setForeground(Color.WHITE);
                 }
 
                 button.setToolTipText(i + ", " + j);
@@ -49,10 +51,14 @@ public class MinePanel extends JPanel {
                 for (int j = 0; j < game.gameBoard.tiles.length; j++) {
                     if (game.gameBoard.tiles[i][j].isFlag()) { //
                         buttons[i][j].setText("F");
-                    } else if (game.gameBoard.tiles[i][j].getBombsAround() == 0) {
+                        buttons[i][j].setBackground(Color.red);
+                        buttons[i][j].setForeground(Color.white);
+                    } else if (game.gameBoard.tiles[i][j].getBombsAround() == 0 && !game.gameBoard.tiles[i][j].isBomb()) {
                         buttons[i][j].setText(" ");
+                        buttons[i][j].setBackground(Color.white);
                     } else if (!game.gameBoard.tiles[i][j].isCover() && game.gameBoard.tiles[i][j].getBombsAround() != 0) {
                         buttons[i][j].setText("" + game.gameBoard.tiles[i][j].getBombsAround());
+                        buttons[i][j].setBackground(Color.black);
                     } else {
                         buttons[i][j].setText("X");
                     }

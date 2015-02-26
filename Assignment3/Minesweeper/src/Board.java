@@ -70,12 +70,12 @@ public class Board implements Serializable {
                 gameDifficulty = MEDIUM;
                 break;
             case HARD:
-                tiles = new Tile[25][25];
+                tiles = new Tile[15][15];
                 bombs = 25;
                 gameDifficulty = HARD;
                 break;
             case BOMBASTIC:
-                tiles = new Tile[25][25];
+                tiles = new Tile[15][15];
                 bombs = 50;
                 gameDifficulty = BOMBASTIC;
                 break;
