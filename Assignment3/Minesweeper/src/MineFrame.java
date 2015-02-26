@@ -117,6 +117,56 @@ public class MineFrame extends JFrame {
         setVisible(true);
     }
 
+    public void showLoser(){
+        Container container = getContentPane();
+
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Image im = toolkit.getImage("assets/simple_bomb.png");
+        im = im.getScaledInstance(20, 20, 0);
+
+        ImageIcon imageIcon = new ImageIcon(im);
+
+        Object[] setValue = {"EASY", "MEDIUM", "HARD", "BOMBASTIC", "QUIT"};
+
+        int difficlty = JOptionPane.showOptionDialog(null, "You lose! Pick a difficulty to start a new game, maybe just quit.", "Minesweeper", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, imageIcon, setValue, setValue[1]);
+
+        switch (difficlty){
+            case 0:
+                System.out.println("EASY");
+                game.newGame(EASY);
+                break;
+            case 1:
+                System.out.println("MEDIUM");
+                game.newGame(MEDIUM);
+                break;
+            case 2:
+                System.out.println("HARD");
+                game.newGame(HARD);
+                break;
+            case 3:
+                System.out.println("BOMBASTIC");
+                game.newGame(BOMBASTIC);
+                break;
+            case 4:
+                System.exit(0);
+            default:
+                System.out.println("EASY");
+                game.newGame(EASY);
+                break;
+        }
+
+        container.remove(scorePanel);
+        container.remove(minePanel);
+
+        scorePanel = new ScorePanel(game);
+        minePanel = new MinePanel(game, this);
+
+        container.add(scorePanel, BorderLayout.NORTH);
+        container.add(minePanel, BorderLayout.CENTER);
+
+        setVisible(true);
+    }
+
     public void setScoreMoves(int x){
         scorePanel.setMoves(x);
     }

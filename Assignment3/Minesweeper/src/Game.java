@@ -7,6 +7,7 @@ public class Game {
     int movesTaken = 0;
     int bombsRemaining = 0;
     boolean isWinner = false;
+    boolean isLoser = false;
 
     /**
      * Creates the game object used to play, and places the bombs
@@ -35,7 +36,7 @@ public class Game {
     public void clickTile(int r, int c){
         if(gameBoard.tiles[r][c].isBomb()){
             System.out.println("Game Over");
-            System.exit(0);
+            isLoser = true;
         } else if(gameBoard.tiles[r][c].isCover()){
             this.gameBoard.removeCover(r, c);
             this.gameBoard.clearSpacesAround(r, c);

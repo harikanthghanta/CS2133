@@ -32,6 +32,9 @@ public class MouseHandler extends MouseAdapter {
 
         if(SwingUtilities.isLeftMouseButton(e)){
             game.clickTile(row, col);
+            if(game.isLoser){
+                mineFrame.showLoser();
+            }
         } else if(SwingUtilities.isRightMouseButton(e)){
             game.flagTile(row, col);
             if(game.gameBoard.checkWinner()){
