@@ -1,5 +1,9 @@
 import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by kyle on 2/23/15.
@@ -11,6 +15,8 @@ public class MineFrame extends JFrame {
     ScorePanel scorePanel;
     MinePanel minePanel;
     Game game;
+    Container container;
+    Container mainContainer;
 
     //difficulty constants
     public static final int EASY = 1;
@@ -23,7 +29,9 @@ public class MineFrame extends JFrame {
         setSize(WIDTH, HEIGHT);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        Container container = getContentPane();
+        container = getContentPane();
+        container.setLayout(new BorderLayout());
+
 
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Image im = toolkit.getImage("assets/simple_bomb.png");
@@ -61,14 +69,26 @@ public class MineFrame extends JFrame {
         scorePanel = new ScorePanel(game);
         minePanel = new MinePanel(game, this);
 
-        container.add(scorePanel, BorderLayout.NORTH);
-        container.add(minePanel, BorderLayout.CENTER);
+        container.add(getMenu(), BorderLayout.NORTH);
+
+        mainContainer = new Container();
+        mainContainer.setLayout(new BorderLayout());
+
+
+
+        mainContainer.add(scorePanel, BorderLayout.NORTH);
+        mainContainer.add(minePanel, BorderLayout.CENTER);
+
+        container.add(mainContainer);
 
         setVisible(true);
     }
 
-    public void showWinner(){
+    public void showNew(boolean won){
         Container container = getContentPane();
+
+        game.isLoser = false;
+        game.isWinner = false;
 
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Image im = toolkit.getImage("assets/simple_bomb.png");
@@ -78,7 +98,16 @@ public class MineFrame extends JFrame {
 
         Object[] setValue = {"EASY", "MEDIUM", "HARD", "BOMBASTIC", "QUIT"};
 
-        int difficlty = JOptionPane.showOptionDialog(null, "You win! Pick a difficulty to start a new game.", "Minesweeper", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, imageIcon, setValue, setValue[1]);
+        String message = "";
+        if(won){
+            message = "You win! Pick a difficulty to start a new game.";
+        } else if(!won){
+            message = "Pick a difficulty to start a new game, or maybe just quit";
+        } else {
+            message = "Pick a difficulty to start a new game.";
+        }
+
+        int difficlty = JOptionPane.showOptionDialog(null, message, "New Game", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, imageIcon, setValue, setValue[1]);
 
         switch (difficlty){
             case 0:
@@ -105,66 +134,34 @@ public class MineFrame extends JFrame {
                 break;
         }
 
-        container.remove(scorePanel);
-        container.remove(minePanel);
+        mainContainer.remove(scorePanel);
+        mainContainer.remove(minePanel);
 
         scorePanel = new ScorePanel(game);
         minePanel = new MinePanel(game, this);
 
-        container.add(scorePanel, BorderLayout.NORTH);
-        container.add(minePanel, BorderLayout.CENTER);
+        mainContainer.add(scorePanel, BorderLayout.NORTH);
+        mainContainer.add(minePanel, BorderLayout.CENTER);
 
         setVisible(true);
     }
 
-    public void showLoser(){
-        Container container = getContentPane();
+    private JMenuBar getMenu(){
+        JMenuBar jMenuBar = new JMenuBar();
 
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Image im = toolkit.getImage("assets/simple_bomb.png");
-        im = im.getScaledInstance(20, 20, 0);
+        JMenu fileMenu = new JMenu("File");
+        JMenu gameMemu = new JMenu("Game");
 
-        ImageIcon imageIcon = new ImageIcon(im);
+        jMenuBar.add(fileMenu);
+        jMenuBar.add(gameMemu);
 
-        Object[] setValue = {"EASY", "MEDIUM", "HARD", "BOMBASTIC", "QUIT"};
+        return jMenuBar;
+    }
 
-        int difficlty = JOptionPane.showOptionDialog(null, "You lose! Pick a difficulty to start a new game, maybe just quit.", "Minesweeper", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, imageIcon, setValue, setValue[1]);
+    private class MenuListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
 
-        switch (difficlty){
-            case 0:
-                System.out.println("EASY");
-                game.newGame(EASY);
-                break;
-            case 1:
-                System.out.println("MEDIUM");
-                game.newGame(MEDIUM);
-                break;
-            case 2:
-                System.out.println("HARD");
-                game.newGame(HARD);
-                break;
-            case 3:
-                System.out.println("BOMBASTIC");
-                game.newGame(BOMBASTIC);
-                break;
-            case 4:
-                System.exit(0);
-            default:
-                System.out.println("EASY");
-                game.newGame(EASY);
-                break;
         }
-
-        container.remove(scorePanel);
-        container.remove(minePanel);
-
-        scorePanel = new ScorePanel(game);
-        minePanel = new MinePanel(game, this);
-
-        container.add(scorePanel, BorderLayout.NORTH);
-        container.add(minePanel, BorderLayout.CENTER);
-
-        setVisible(true);
     }
 
     public void setScoreMoves(int x){

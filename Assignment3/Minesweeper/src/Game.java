@@ -1,8 +1,10 @@
+import java.io.Serializable;
+
 /**
  * Created by kyle on 2/13/15.
  */
 
-public class Game {
+public class Game implements Serializable {
     Board gameBoard;
     int movesTaken = 0;
     int bombsRemaining = 0;
@@ -22,6 +24,10 @@ public class Game {
         this.gameBoard = makeGameBoard(difficulty);
         this.calculateBombsRemaining();
         this.movesTaken = 0;
+    }
+
+    public void saveGame() {
+
     }
 
     public void flagTile(int r, int c){

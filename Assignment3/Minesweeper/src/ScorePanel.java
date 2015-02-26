@@ -18,15 +18,22 @@ public class ScorePanel extends JPanel {
         bombs = game.gameBoard.bombs;
         moves = game.movesTaken;
 
+        setLayout(new GridLayout());
+        setSize(getWidth(), 100);
+
         bombsRemaining = new JLabel("Bombs Remaining: " + game.gameBoard.bombs);
         movesTaken = new JLabel("Moves Taken: " + game.movesTaken);
 
         bombImage = new JLabel();
 
+        bombsRemaining.setHorizontalAlignment(SwingConstants.LEFT);
+        movesTaken.setHorizontalAlignment(SwingConstants.RIGHT);
+        bombImage.setHorizontalAlignment(SwingConstants.CENTER);
+
 
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         im = toolkit.getImage("assets/simple_bomb.png");
-        im = im.getScaledInstance(20, 20, 0);
+        im = im.getScaledInstance(50, 50, 0);
 
         ImageIcon imageIcon = new ImageIcon(im);
 
