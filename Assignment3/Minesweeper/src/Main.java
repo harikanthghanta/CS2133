@@ -9,6 +9,8 @@ public class Main {
         //this works!
         game.saveGame("/home/kyle/game.obj");
 
+        game.loadGame("/home/kyle/game.obj");
+
         //TODO fix this
         //game.saveGame();
     }

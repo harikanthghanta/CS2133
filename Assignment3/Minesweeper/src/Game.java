@@ -49,6 +49,21 @@ public class Game implements Serializable {
         }
     }
 
+    public void loadGame(String filePath){
+        Game game = null;
+        try {
+            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(new File(filePath)));
+            game = (Game) inputStream.readObject();
+
+        } catch (FileNotFoundException e){
+            e.printStackTrace();
+        } catch (IOException e){
+            e.printStackTrace();
+        } catch (ClassNotFoundException e){
+            e.printStackTrace();
+        }
+    }
+
     public void flagTile(int r, int c){
         if(gameBoard.tiles[r][c].isFlag()){
             gameBoard.removeFlag(r, c);
