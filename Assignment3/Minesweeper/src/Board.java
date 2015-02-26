@@ -208,15 +208,21 @@ public class Board implements Serializable {
     }
 
     public boolean checkWinner(){
-        int counter = 0;
+        int flaggedBombs = 0;
+        int flagCount = 0;
+
         for(int row = 0; row < this.tiles.length; row++) {
             for(int col = 0; col < this.tiles[row].length; col++) {
+                if(tiles[row][col].isFlag()){
+                    flagCount++;
+                }
+
                 if(tiles[row][col].isBomb() && tiles[row][col].isFlag()){
-                    counter++;
+                    flaggedBombs++;
                 }
             }
         }
-        if(counter == bombs){
+        if(flaggedBombs == bombs && flagCount == bombs){
             System.out.println("Winner");
             return true;
         } else {

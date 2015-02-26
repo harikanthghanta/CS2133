@@ -83,6 +83,15 @@ public class MinePanel extends JPanel {
                     buttons[i][j].setBackground(Color.black);
                     buttons[i][j].setText("");
                 }
+
+                //just to test
+                /*
+                if(game.gameBoard.tiles[i][j].isBomb()){
+                    buttons[i][j].setText("B");
+                    buttons[i][j].setBackground(Color.YELLOW);
+                    buttons[i][j].setForeground(Color.black);
+                }
+                */
             }
         }
 
