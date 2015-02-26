@@ -146,6 +146,7 @@ public class MineFrame extends JFrame {
         setVisible(true);
     }
 
+    //TODO finish this menu
     private JMenuBar getMenu(){
         JMenuBar jMenuBar = new JMenuBar();
 

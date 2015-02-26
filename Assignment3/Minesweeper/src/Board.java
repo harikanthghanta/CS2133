@@ -1,10 +1,11 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
 /**
  * Created by kyle on 2/15/15.
  */
-public class Board {
+public class Board implements Serializable {
     Tile[][] tiles;
     int bombs;
     int gameDifficulty;

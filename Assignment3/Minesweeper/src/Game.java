@@ -1,4 +1,4 @@
-import java.io.Serializable;
+import java.io.*;
 
 /**
  * Created by kyle on 2/13/15.
@@ -26,8 +26,27 @@ public class Game implements Serializable {
         this.movesTaken = 0;
     }
 
-    public void saveGame() {
+    public void saveGame(){
+        String filePath = "~/";
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(new File(filePath)));
+            outputStream.writeObject(this);
+            outputStream.flush();
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void saveGame(String filePath) {
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(new File(filePath)));
+            outputStream.writeObject(this);
+            outputStream.flush();
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void flagTile(int r, int c){

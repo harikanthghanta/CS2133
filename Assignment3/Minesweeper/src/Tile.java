@@ -1,7 +1,9 @@
+import java.io.Serializable;
+
 /**
  * Created by kyle on 2/15/15.
  */
-public class Tile {
+public class Tile implements Serializable {
     private boolean bomb = false;
     private boolean cover = true;
     private boolean flag = false;

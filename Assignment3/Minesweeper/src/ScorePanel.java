@@ -13,6 +13,7 @@ public class ScorePanel extends JPanel {
 
     Game game;
 
+    //TODO add timer
     ScorePanel(Game game){
         this.game = game;
         bombs = game.gameBoard.bombs;
