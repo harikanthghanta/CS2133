@@ -31,12 +31,25 @@ public class MouseHandler extends MouseAdapter {
         int col = Integer.parseInt(getParams[1]);
 
         if(SwingUtilities.isLeftMouseButton(e)){
-            game.clickTile(row, col);
-            if(game.isLoser){
-                mineFrame.showNew(false);
+            if(game.gameBoard.tiles[row][col].getBombsAround() == 0){
+                game.clickTile(row, col);
+                game.gameBoard.findBombsAround();
+                game.gameBoard.clearSpacesAround(row, col);
+                if(game.isLoser){
+                    mineFrame.showNew(false);
+                }
+            } else {
+                game.clickTile(row, col);
+                game.gameBoard.findBombsAround();
+                //game.gameBoard.clearSpacesAround(row, col);
+                if(game.isLoser){
+                    mineFrame.showNew(false);
+                }
             }
         } else if(SwingUtilities.isRightMouseButton(e)){
             game.flagTile(row, col);
+            game.gameBoard.findBombsAround();
+            game.gameBoard.clearSpacesAround(row, col);
             if(game.gameBoard.checkWinner()){
                 mineFrame.showNew(true);
             }

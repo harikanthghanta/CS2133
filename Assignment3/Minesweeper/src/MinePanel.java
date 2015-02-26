@@ -24,7 +24,7 @@ public class MinePanel extends JPanel {
                     button = new JButton("F");
                     repaint();
                 } else {
-                    button = new JButton("X");
+                    button = new JButton("");
                     button.setBackground(Color.black);
                     button.setForeground(Color.WHITE);
                 }
@@ -46,24 +46,45 @@ public class MinePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(game.movesTaken > 0) {
-            for (int i = 0; i < game.gameBoard.tiles.length; i++) {
-                for (int j = 0; j < game.gameBoard.tiles.length; j++) {
-                    if (game.gameBoard.tiles[i][j].isFlag()) { //
-                        buttons[i][j].setText("F");
-                        buttons[i][j].setBackground(Color.red);
-                        buttons[i][j].setForeground(Color.white);
-                    } else if (game.gameBoard.tiles[i][j].getBombsAround() == 0 && !game.gameBoard.tiles[i][j].isBomb()) {
-                        buttons[i][j].setText(" ");
-                        buttons[i][j].setBackground(Color.white);
-                    } else if (!game.gameBoard.tiles[i][j].isCover() && game.gameBoard.tiles[i][j].getBombsAround() != 0) {
+
+        for (int i = 0; i < game.gameBoard.tiles.length; i++) {
+            for (int j = 0; j < game.gameBoard.tiles.length; j++) {
+                //Flags have to be red and print an F
+                //Covered Spaces are black
+                //uncovered spaces are white unless they have a bombs around > 0
+
+                //flag is highest precidence
+                if(game.gameBoard.tiles[i][j].isFlag()){
+                    buttons[i][j].setText("F");
+                    buttons[i][j].setBackground(Color.RED);
+                    buttons[i][j].setForeground(Color.black);
+                }
+                //check if it's covered
+                else if(!game.gameBoard.tiles[i][j].isCover()){
+
+                    game.gameBoard.findBombsAround();
+
+
+                    if(game.gameBoard.tiles[i][j].getBombsAround() > 0){
                         buttons[i][j].setText("" + game.gameBoard.tiles[i][j].getBombsAround());
-                        buttons[i][j].setBackground(Color.black);
+                        buttons[i][j].setForeground(Color.white);
+                        buttons[i][j].setBackground(Color.blue);
                     } else {
-                        buttons[i][j].setText("X");
+                        buttons[i][j].setText("" + game.gameBoard.tiles[i][j].getBombsAround());
+                        buttons[i][j].setForeground(Color.white);
+                        buttons[i][j].setBackground(Color.white);
                     }
+
+
+
+                }
+                //if it's covered, keep it black
+                else if(game.gameBoard.tiles[i][j].isCover()){
+                    buttons[i][j].setBackground(Color.black);
+                    buttons[i][j].setText("");
                 }
             }
         }
+
     }
 }

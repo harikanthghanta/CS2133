@@ -85,7 +85,7 @@ public class Game implements Serializable {
     }
 
     public void moveTaken(){
-        this.gameBoard.findBombsAround();
+        //this.gameBoard.findBombsAround();
         this.movesTaken++;
         calculateBombsRemaining();
         isWinner = gameBoard.checkWinner();

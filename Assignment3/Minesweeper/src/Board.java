@@ -178,17 +178,29 @@ public class Board implements Serializable {
      * @param row the row of the tile to clear
      * @param col the column of the tile to clear
      */
+    //TODO i think i need to recursively call this around all adjectent spaces if I find one that's 0, and uncover them unles they are bombs or flags
     public void clearSpacesAround(int row, int col) {
         //loop through adjacent tiles to the one passed in
-        for(int x = row - 1; x <= row + 1; x++){
-            for(int y = col - 1; y <= col + 1; y++){
-                //make sure the adjacent tile is in the bounds of the game board
-                if(x >= 0 && x < tiles.length && y >= 0 && y < tiles[row].length){
-                    //if the tile isn't a bomb and is covered, uncover the tile and make a recursive call
-                    //this is important so we don't call the method on covered tiles, which makes this method much more likely to result in a StackOverflow
-                    if(!tiles[x][y].isBomb() && tiles[x][y].isCover()){
+        findBombsAround();
+        if(tiles[row][col].getBombsAround() == 0){
+            for(int x = row - 1; x <= row + 1; x++){
+                for(int y = col - 1; y <= col + 1; y++){
+                    //make sure the adjacent tile is in the bounds of the game board
+                    if(x >= 0 && x < tiles.length && y >= 0 && y < tiles[row].length){
+                        //if the tile isn't a bomb and is covered, uncover the tile and make a recursive call
+                        //this is important so we don't call the method on covered tiles, which makes this method much more likely to result in a StackOverflow
+                        if(!tiles[x][y].isBomb() && tiles[x][y].isCover() && tiles[x][y].getBombsAround() == 0){
+                            tiles[x][y].setCover(false);
+                            clearSpacesAround(x, y);
+                        } else if(!tiles[x][y].isBomb() && !tiles[x][y].isFlag()){
+                            tiles[x][y].setCover(false);
+                        }
+                    /*
+                    if(!tiles[x][y].isBomb() && tiles[x][y].isCover() && tiles[x][y].getBombsAround() == 0){
                         tiles[x][y].setCover(false);
                         clearSpacesAround(x, y);
+                    }
+                    */
                     }
                 }
             }
