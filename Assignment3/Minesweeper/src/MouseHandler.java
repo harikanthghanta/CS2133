@@ -48,8 +48,6 @@ public class MouseHandler extends MouseAdapter {
             }
         } else if(SwingUtilities.isRightMouseButton(e)){
             game.flagTile(row, col);
-            game.gameBoard.findBombsAround();
-            game.gameBoard.clearSpacesAround(row, col);
             if(game.gameBoard.checkWinner()){
                 mineFrame.showNew(true);
             }
