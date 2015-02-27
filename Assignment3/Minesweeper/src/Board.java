@@ -1,5 +1,4 @@
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -195,12 +194,6 @@ public class Board implements Serializable {
                         } else if(!tiles[x][y].isBomb() && !tiles[x][y].isFlag()){
                             tiles[x][y].setCover(false);
                         }
-                    /*
-                    if(!tiles[x][y].isBomb() && tiles[x][y].isCover() && tiles[x][y].getBombsAround() == 0){
-                        tiles[x][y].setCover(false);
-                        clearSpacesAround(x, y);
-                    }
-                    */
                     }
                 }
             }

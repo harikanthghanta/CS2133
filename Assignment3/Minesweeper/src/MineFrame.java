@@ -1,12 +1,7 @@
 import javax.swing.*;
-import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
 
 /**
  * Created by kyle on 2/23/15.
@@ -90,7 +85,6 @@ public class MineFrame extends JFrame {
     }
 
     public void showNew(boolean won){
-        Container container = getContentPane();
 
         game.isLoser = false;
         game.isWinner = false;
@@ -290,13 +284,5 @@ public class MineFrame extends JFrame {
         mainContainer.add(minePanel, BorderLayout.CENTER);
 
         setVisible(true);
-    }
-
-    public void setScoreMoves(int x){
-        scorePanel.setMoves(x);
-    }
-
-    public void setScoreBombs(int x){
-        scorePanel.setBombs(x);
     }
 }

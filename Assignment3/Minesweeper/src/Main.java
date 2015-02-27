@@ -1,10 +1,6 @@
-import java.util.Scanner;
-
 public class Main {
 
     public static void main(String[] args) {
-        //new MineFrame();
-        Tests tests = new Tests();
-
+        new MineFrame();
     }
 }

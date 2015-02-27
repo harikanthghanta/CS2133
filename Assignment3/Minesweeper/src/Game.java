@@ -102,10 +102,6 @@ public class Game implements Serializable {
         return new Board(difficulty);
     }
 
-    public void printTile(int r, int c){
-        System.out.println(gameBoard.getTile(r, c));
-    }
-
     public void calculateBombsRemaining(){
         int temp = 0;
         for(int row = 0; row < this.gameBoard.tiles.length; row++) {

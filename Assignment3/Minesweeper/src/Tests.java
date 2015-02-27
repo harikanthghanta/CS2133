@@ -2,7 +2,6 @@
  * Created by kyle on 2/26/15.
  */
 public class Tests {
-    //TODO write tests
 
     public Tests(){
         System.out.println("Game can be won: " + winTest());
