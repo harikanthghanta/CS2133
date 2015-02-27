@@ -2,9 +2,12 @@ import java.io.*;
 
 /**
  * Created by kyle on 2/13/15.
+ *
+ * Class that creates the model used for the game logic.
  */
 
 public class Game implements Serializable {
+    //used to ensure that we can load the serialized object
     private static long serialVersionUID = -5061264484551653426L;
 
     Board gameBoard;
@@ -22,12 +25,22 @@ public class Game implements Serializable {
         this.gameBoard = makeGameBoard(difficulty);
     }
 
+    /**
+     * Creates a new game board for the same game object. This is so we can use the same object for multiple sessions.
+     *
+     * @param difficulty the difficulty of the new game
+     */
     public void newGame(int difficulty){
         this.gameBoard = makeGameBoard(difficulty);
         this.calculateBombsRemaining();
         this.movesTaken = 0;
     }
 
+    /**
+     * Serializes the game object and saves it to a file.
+     *
+     * @param filePath The path where the game should be saved. Passed in from the chooseFileDialog in the MineFrame.
+     */
     public void saveGame(String filePath) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(new File(filePath)));
@@ -39,6 +52,11 @@ public class Game implements Serializable {
         }
     }
 
+    /**
+     * Reads a game object that was previously serialized.
+     *
+     * @param filePath The path where the game should be loaded from. Passed in from the chooseFileDialog in the MineFrame.
+     */
     public void loadGame(String filePath){
         Game temp = null;
         try {
@@ -56,6 +74,12 @@ public class Game implements Serializable {
         }
     }
 
+    /**
+     * Places or removes a flag from the tile at the coordinates passed in.
+     *
+     * @param r The row of the tile to be flagged.
+     * @param c The column of the tile to be flagged.
+     */
     public void flagTile(int r, int c){
         if(gameBoard.tiles[r][c].isFlag()){
             gameBoard.removeFlag(r, c);
@@ -65,6 +89,12 @@ public class Game implements Serializable {
         moveTaken();
     }
 
+    /**
+     * Clears an empty tile, or ends the game a bomb is clicked.
+     *
+     * @param r The row of the tile to be clicked.
+     * @param c The column of the tile to be clicked.
+     */
     public void clickTile(int r, int c){
         if(gameBoard.tiles[r][c].isBomb()){
             System.out.println("Game Over");
@@ -76,32 +106,59 @@ public class Game implements Serializable {
         moveTaken();
     }
 
+    /**
+     * Creates a bomb at the specified coordinates for testing purposes.
+     *
+     * @param r The row of the tile on which to place the bomb.
+     * @param c The column of the tile on which to place the bomb.
+     */
     public void testBomb(int r, int c){
         this.gameBoard.tiles[r][c].setBomb(true);
     }
 
+    /**
+     * Clears a bomb from the specified coordinates for testing purposes.
+     *
+     * @param r The row of the tile on which to clear the bomb.
+     * @param c The column of the tile on which to clear the bomb.
+     */
     public void clearBomb(int r, int c){
         this.gameBoard.tiles[r][c].setBomb(false);
     }
 
+    /**
+     * Incitements the moves taken counter, calculates the bombs remaining, and tests for a winner. Great for testing after moves.
+     */
     public void moveTaken(){
         //this.gameBoard.findBombsAround();
         this.movesTaken++;
         calculateBombsRemaining();
         isWinner = gameBoard.checkWinner();
-        printGame();
+        //printGame();
     }
 
+    /**
+     * Used to print the board to the command line.
+     */
     public void printGame(){
         System.out.println("Move: " + this.movesTaken + "\n-------------------");
         gameBoard.printBoard();
         System.out.println();
     }
 
+    /**
+     * Makes a new Game object with the specified difficulty.
+     *
+     * @param difficulty The desired difficulty of the new game.
+     * @return The new game object created.
+     */
     public Board makeGameBoard(int difficulty){
         return new Board(difficulty);
     }
 
+    /**
+     * Calculates the number of bombs not yet covered with a flag.
+     */
     public void calculateBombsRemaining(){
         int temp = 0;
         for(int row = 0; row < this.gameBoard.tiles.length; row++) {

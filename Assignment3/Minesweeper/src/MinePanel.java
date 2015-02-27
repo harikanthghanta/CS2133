@@ -3,6 +3,8 @@ import java.awt.*;
 
 /**
  * Created by kyle on 2/23/15.
+ *
+ * The panel containing the grid of buttons representing the tiles.
  */
 public class MinePanel extends JPanel {
     JButton buttons[][];

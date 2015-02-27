@@ -1,5 +1,8 @@
 /**
  * Created by kyle on 2/26/15.
+ *
+ * Test class with default constructor that runs all tests and prints the results.
+ *
  */
 public class Tests {
 

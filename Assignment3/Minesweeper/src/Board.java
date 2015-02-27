@@ -3,6 +3,8 @@ import java.util.Random;
 
 /**
  * Created by kyle on 2/15/15.
+ *
+ * The game board object used to play the game.
  */
 public class Board implements Serializable {
     private static long serialVersionUID = -5061264484551653426L;
@@ -17,6 +19,11 @@ public class Board implements Serializable {
     public static final int HARD = 3;
     public static final int BOMBASTIC = 4;//Lol if Cr1ck will even think this is a good idea XDDDDDDDDDDDDDDDDD
 
+    /**
+     * Creates a new board and places the bombs.
+     *
+     * @param gameDifficulty The desired difficulty of the board, changes the number of bombs placed.
+     */
     public Board(int gameDifficulty) {
         makeBoard(gameDifficulty);
         this.placeBombs();
@@ -200,6 +207,11 @@ public class Board implements Serializable {
         }
     }
 
+    /**
+     * Checks if all the bombs are covered with flags, and if the number of flags is equal to the number of bombs on the board.
+     *
+     * @return True if the conditions are met, false if they are not.
+     */
     public boolean checkWinner(){
         int flaggedBombs = 0;
         int flagCount = 0;

@@ -4,6 +4,8 @@ import java.awt.event.MouseEvent;
 
 /**
  * Created by kyle on 2/25/15.
+ *
+ * Class to handle the mouse clicks on the buttons.
  */
 public class MouseHandler extends MouseAdapter {
     Game game;

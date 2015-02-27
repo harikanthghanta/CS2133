@@ -3,6 +3,8 @@ import java.awt.*;
 
 /**
  * Created by kyle on 2/24/15.
+ *
+ * The panel that displays the board.
  */
 public class ScorePanel extends JPanel {
     private JLabel bombsRemaining, movesTaken, bombImage;

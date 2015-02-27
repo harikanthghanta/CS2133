@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 /**
  * Created by kyle on 2/23/15.
+ *
+ * The frame that contains the panels representing the game state.
  */
 public class MineFrame extends JFrame {
     private static long serialVersionUID = -5061264484551653426L;
