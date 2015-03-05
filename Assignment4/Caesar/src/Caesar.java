@@ -19,19 +19,11 @@ public class Caesar {
     }
 
     public Caesar(){
-        this.inFile = new File("/home/kyle/JavaProjects/CS2133/Assignment4/Caesar/src/in.txt");
-        this.outFile = new File("/home/kyle/JavaProjects/CS2133/Assignment4/Caesar/src/out.txt");
-        this.key = 3;
+
     }
 
-    public void caesarShift(){
+    public void encryptFile(){
         try{
-            //Runtime.getRuntime().exec("chmod 777 " + "/home/kyle/JavaProjects/CS2133/Assignment4/Caesar/src/out.txt");
-
-            //FilePermission outPermission = new FilePermission("/home/kyle/JavaProjects/CS2133/Assignment4/Caesar/src/out.txt", "write");
-
-            //AccessController.checkPermission(outPermission);
-
             Scanner scanner = new Scanner(inFile);
             PrintWriter printWriter = new PrintWriter(outFile);
 
@@ -46,10 +38,25 @@ public class Caesar {
 
         } catch (FileNotFoundException e){
             System.out.println("file not found");
-        } catch (AccessControlException e){
-            System.out.println("insufficient permissions");
-        } catch (IOException e){
-            System.out.println("could not set permissions");
+        }
+    }
+
+    public void decryptFile(){
+        try{
+            Scanner scanner = new Scanner(inFile);
+            PrintWriter printWriter = new PrintWriter(outFile);
+
+
+            while (scanner.hasNextLine()){
+                String tempIn = scanner.nextLine();
+                String tempDecrypt = decryptLine(tempIn, key);
+                printWriter.write(tempDecrypt + "\n");
+            }
+            printWriter.flush();
+            printWriter.close();
+
+        } catch (FileNotFoundException e){
+            System.out.println("file not found");
         }
     }
 
@@ -84,10 +91,6 @@ public class Caesar {
     }
 
     public static void main(String[] args) {
-        Caesar caesar = new Caesar();
-        caesar.caesarShift();
-
-        /*
         File inFile;
         File outFile;
         int key;
@@ -98,31 +101,20 @@ public class Caesar {
             System.exit(0);
         }
 
-        //outFile = new File(args[2]);
-        outFile = new File("/home/kyle/JavaProjects/CS2133/Assignment4/Caesar/src/out.txt");
+        outFile = new File(args[2]);
         key = Integer.parseInt(args[0]);
 
         try {
-            //inFile = new File(args[1]);
             inFile = new File("/home/kyle/JavaProjects/CS2133/Assignment4/Caesar/src/in.txt");
             if(!inFile.exists() && !inFile.isDirectory()){
                 throw new FileNotFoundException();
             }
-
-            //check file permissions
-            FilePermission inPermission = new FilePermission(args[1], "read");
-            FilePermission outPermission = new FilePermission(args[2], "write");
-
-            AccessController.checkPermission(inPermission);
-            AccessController.checkPermission(outPermission);
-
             Caesar caesar = new Caesar(inFile, outFile, key);
-            caesar.caesarShift();
+            caesar.encryptFile();
         } catch (AccessControlException e){
             System.out.println("improper permissions for input or output file");
         } catch (FileNotFoundException e){
             System.out.println("input file doesn't exist");
         }
-        */
     }
 }
