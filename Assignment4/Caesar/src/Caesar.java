@@ -90,19 +90,33 @@ public class Caesar {
         return outLine;
     }
 
+    public static void printError(){
+        System.out.println("Proper Usage is: java Caesar [usage option] [key] [infile] [outfile]");
+        System.out.println("Usage options: -d to decrypt, -e to encrypt");
+        System.exit(0);
+    }
+
     public static void main(String[] args) {
         File inFile;
         File outFile;
         int key;
+        boolean isEncrypt = true;
 
-        if(args.length != 3)
+        if(args.length != 4)
         {
-            System.out.println("Proper Usage is: java Caesar key infile [outfile]");
-            System.exit(0);
+            printError();
         }
 
-        outFile = new File(args[2]);
-        key = Integer.parseInt(args[0]);
+        outFile = new File(args[3]);
+        key = Integer.parseInt(args[1]);
+
+        if(args[0].equals("-e")){
+            isEncrypt = true;
+        } else if (args[0].equals("-d")){
+            isEncrypt = false;
+        } else {
+            printError();
+        }
 
         try {
             inFile = new File("/home/kyle/JavaProjects/CS2133/Assignment4/Caesar/src/in.txt");
@@ -110,7 +124,12 @@ public class Caesar {
                 throw new FileNotFoundException();
             }
             Caesar caesar = new Caesar(inFile, outFile, key);
-            caesar.encryptFile();
+            if(isEncrypt){
+                caesar.encryptFile();
+            } else {
+                caesar.decryptFile();
+            }
+
         } catch (AccessControlException e){
             System.out.println("improper permissions for input or output file");
         } catch (FileNotFoundException e){
