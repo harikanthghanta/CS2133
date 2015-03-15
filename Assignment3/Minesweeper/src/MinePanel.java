@@ -81,6 +81,7 @@ public class MinePanel extends JPanel {
 
                 }
                 //if it's covered, keep it black
+
                 else if(game.gameBoard.tiles[i][j].isCover()){
                     buttons[i][j].setBackground(Color.black);
                     buttons[i][j].setText("");
