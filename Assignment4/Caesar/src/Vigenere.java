@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.security.AccessControlException;
 import java.util.Scanner;
 
 /**
@@ -51,7 +52,7 @@ public class Vigenere {
             }
             printWriter.flush();
             printWriter.close();
-            
+
         } catch (FileNotFoundException e) {
             System.out.println("file not found");
             System.exit(0);
@@ -83,13 +84,10 @@ public class Vigenere {
 
             if (lineChar < 32) lineChar = (char)(lineChar  + 95);
 
-            System.out.println((int)lineChar + " shift result of " + inLine.charAt(i) + " + " + keyChar);
-
             keyCharIndex++;
             if (keyCharIndex == key.length()) keyCharIndex = 0;
 
             outLine += lineChar;
-            System.out.println("E: " + outLine);
         }
 
         return outLine;
@@ -102,8 +100,6 @@ public class Vigenere {
         for(int i = 0; i < inLine.length(); i++){
             char tempChar = inLine.charAt(i);
             char keyChar = key.charAt(keyCharIndex);
-
-            System.out.println((int)tempChar);
 
             if (tempChar > 32 || tempChar < 126) tempChar = (char)tempChar;
 
@@ -120,24 +116,12 @@ public class Vigenere {
 
             if (tempChar < 32) tempChar = (char)(tempChar  + 95);
 
-            System.out.println((int)tempChar + " shift result of " + inLine.charAt(i) + " - " + keyChar);
-
             keyCharIndex++;
             if (keyCharIndex == key.length()) keyCharIndex = 0;
 
             outLine += tempChar;
-            System.out.println("D: " + outLine);
         }
 
-        for (int i = 0; i < outLine.length(); i++){
-            System.out.print(outLine.charAt(i));
-        }
-        System.out.println();
-
-        for (int i = 0; i < outLine.length(); i++){
-            System.out.print((int)outLine.charAt(i) + " ");
-        }
-        System.out.println();
         return outLine;
     }
 
@@ -148,6 +132,41 @@ public class Vigenere {
     }
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        File inFile;
+        File outFile;
+        String key;
+        boolean isEncrypt = true;
+
+        if (args.length != 4){
+            printError();
+        }
+
+        outFile = new File(args[3]);
+        key = args[1];
+
+        if(args[0].equals("-e")){
+            isEncrypt = true;
+        } else if (args[0].equals("-d")){
+            isEncrypt = false;
+        } else {
+            printError();
+        }
+
+        try {
+            inFile = new File(args[2]);
+            if(!inFile.exists() && !inFile.isDirectory()){
+                throw new FileNotFoundException();
+            }
+            Vigenere vigenere = new Vigenere(inFile, outFile, key);
+            if(isEncrypt){
+                vigenere.encryptFile();
+            } else {
+                vigenere.decryptFile();
+            }
+        } catch (AccessControlException e){
+            System.out.println("impropper permissions for input or output file");
+        } catch (FileNotFoundException e) {
+            System.out.println("input file does not exist");
+        }
     }
 }
