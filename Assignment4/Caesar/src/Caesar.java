@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  * Created by kyle on 3/3/15.
  *
- * Usage as follows `java Caesar key infile [outfile]`
+ * Usage as follows `java Caesar -option key inFile outFile`
  */
 public class Caesar {
     File inFile;
