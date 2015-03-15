@@ -18,7 +18,7 @@ public class Vigenere {
 
     public Vigenere(){}
 
-    
+
 
     /**
      * Method that takes a line of text as a String and returns the encrypted value.
@@ -101,6 +101,12 @@ public class Vigenere {
         }
         System.out.println();
         return outLine;
+    }
+
+    public static void printError(){
+        System.out.println("Propper Usage is: java Vigenere -option key inFile outFile");
+        System.out.println("Usage option: -d to decrypt, -e to encrypt");
+        System.exit(0);
     }
 
     public static void main(String[] args) {
