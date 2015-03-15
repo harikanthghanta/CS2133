@@ -1,4 +1,7 @@
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
 /**
  * Created by kyle on 3/3/15.
@@ -18,7 +21,42 @@ public class Vigenere {
 
     public Vigenere(){}
 
+    public void encryptFile(){
+        try {
+            Scanner scanner = new Scanner(inFile);
+            PrintWriter printWriter = new PrintWriter(outFile);
 
+            while (scanner.hasNextLine()){
+                String tempIn = scanner.nextLine();
+                String tempEncrypt = encryptLine(tempIn, key);
+                printWriter.write(tempEncrypt + "\n");
+            }
+            printWriter.flush();
+            printWriter.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("file not found");
+            System.exit(0);
+        }
+    }
+
+    public void decryptFile(){
+        try {
+            Scanner scanner = new Scanner(inFile);
+            PrintWriter printWriter = new PrintWriter(outFile);
+
+            while (scanner.hasNextLine()){
+                String tempIn = scanner.nextLine();
+                String tempDecrypt = decryptLine(tempIn, key);
+                printWriter.write(tempDecrypt + "\n");
+            }
+            printWriter.flush();
+            printWriter.close();
+            
+        } catch (FileNotFoundException e) {
+            System.out.println("file not found");
+            System.exit(0);
+        }
+    }
 
     /**
      * Method that takes a line of text as a String and returns the encrypted value.

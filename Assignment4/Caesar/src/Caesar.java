@@ -38,6 +38,7 @@ public class Caesar {
 
         } catch (FileNotFoundException e){
             System.out.println("file not found");
+            System.exit(0);
         }
     }
 
