@@ -9,16 +9,17 @@ import java.awt.event.ActionListener;
  * Created by kyle on 3/15/15.
  */
 public class BrowserPanel extends JPanel {
+
     BrowserPanel(){
-        JTextField textField = new JTextField();
+        final JTextField textField = new JTextField();
         textField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("event");
+                new BrowserRender().setEnteredURL(textField.getText());
             }
         });
         setLayout(new BorderLayout());
-        add(textField);
+        add(textField, BorderLayout.NORTH);
     }
 
 }
