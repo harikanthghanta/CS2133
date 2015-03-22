@@ -5,7 +5,10 @@ package com.kylealanr;
  */
 public class Test {
     public static void main(String[] args){
-        UrlFormatter urlFormatter = new UrlFormatter();
-        System.out.println(urlFormatter.createRequest());
+        //UrlFormatter urlFormatter = new UrlFormatter();
+        //System.out.println(urlFormatter.createRequest());
+
+        UrlRequest urlRequest = new UrlRequest();
+        System.out.println(urlRequest.downloadRawHtml("google.com"));
     }
 }

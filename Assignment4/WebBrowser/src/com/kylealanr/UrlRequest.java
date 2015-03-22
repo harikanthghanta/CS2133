@@ -45,9 +45,9 @@ public class UrlRequest {
         validatedURL = urlFormatter.createRequest();
 
         try {
-            socket = new Socket(url, port);
+            socket = new Socket(validatedURL, port);
         } catch (IOException e){
-            System.out.println("IO Exception");
+            e.printStackTrace();
         }
 
         if (socket != null && socket.isConnected()) {

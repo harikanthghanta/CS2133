@@ -18,6 +18,7 @@ public class UrlFormatter {
     public URL confirmedURL;
     private String fileRequest = "";
     private String hostRequest = "";
+    private final String DEFAULT_PROTOCOL = "HTTP/1.1";
 
     UrlFormatter(String url){
         this.enteredString = url;
@@ -41,7 +42,7 @@ public class UrlFormatter {
 
     public String createRequest(){
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("GET " + fileRequest + "\r\n");
+        stringBuilder.append("GET " + fileRequest + DEFAULT_PROTOCOL + "\r\n");
         stringBuilder.append("Host: " + hostRequest + "\r\n");
         stringBuilder.append("\r\n");
 
