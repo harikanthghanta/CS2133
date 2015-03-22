@@ -5,7 +5,7 @@ package com.kylealanr;
  */
 public class Test {
     public static void main(String[] args){
-        BrowserRender browserRender = new BrowserRender();
-        System.out.println(browserRender.createRequest());
+        UrlFormatter urlFormatter = new UrlFormatter();
+        System.out.println(urlFormatter.createRequest());
     }
 }

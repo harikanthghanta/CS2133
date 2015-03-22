@@ -13,13 +13,13 @@ import java.net.URL;
  * Host: en.wikipedia.org\r\n
  * \r\n
  */
-public class BrowserRender {
+public class UrlFormatter {
     public String enteredString = "";
     public URL confirmedURL;
     private String fileRequest = "";
     private String hostRequest = "";
 
-    BrowserRender(){
+    UrlFormatter(){
         this.enteredString = "http://kyleriedemann.com";
         parseURL();
     }
