@@ -30,6 +30,10 @@ public class UrlFormatter {
         parseURL();
     }
 
+    public String getHostRequest() {
+        return hostRequest;
+    }
+
     public void parseURL(){
         try {
             confirmedURL = new URL(enteredString);

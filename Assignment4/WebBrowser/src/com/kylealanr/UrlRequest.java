@@ -43,9 +43,11 @@ public class UrlRequest {
 
         urlFormatter = new UrlFormatter(url);
         validatedURL = urlFormatter.createRequest();
+        url = urlFormatter.getHostRequest();
+
 
         try {
-            socket = new Socket(validatedURL, port);
+            socket = new Socket(url, port);
         } catch (IOException e){
             e.printStackTrace();
         }
