@@ -1,9 +1,6 @@
 package com.kylealanr;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.URL;
@@ -27,9 +24,11 @@ public class UrlRequest {
     }
 
     public String downloadRawHtml(String url, int port){
-        Socket socket;
-        PrintWriter printWriter;
-        BufferedReader bufferedReader;
+        Socket socket = null;
+
+        //need to rename these, not very descriptive names
+        PrintWriter printWriter = null;
+        BufferedReader bufferedReader = null;
 
         //probably just a temp variable, can use the entered url later
         String validatedURL = "";
@@ -51,6 +50,32 @@ public class UrlRequest {
             System.out.println("IO Exception");
         }
 
-        return "";
+        if (socket != null && socket.isConnected()) {
+            try {
+                printWriter = new PrintWriter(socket.getOutputStream());
+            } catch (IOException e){
+                System.out.println("failed to create print writer");
+            }
+
+            try {
+                bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            } catch (IOException e){
+                System.out.println("failed to create buffered reader");
+            }
+
+            printWriter.print(validatedURL);
+            printWriter.flush();
+
+            String pageLine = "";
+            try {
+                while ((pageLine = bufferedReader.readLine()) != null){
+                    rawHTML += pageLine;
+                }
+            } catch (IOException e){
+                System.out.println("cannot get the next line from the buffered reader");
+            }
+        }
+
+        return rawHTML;
     }
 }
