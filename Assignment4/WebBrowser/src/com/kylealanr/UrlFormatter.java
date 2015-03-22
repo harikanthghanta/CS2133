@@ -19,6 +19,11 @@ public class UrlFormatter {
     private String fileRequest = "";
     private String hostRequest = "";
 
+    UrlFormatter(String url){
+        this.enteredString = url;
+        parseURL();
+    }
+
     UrlFormatter(){
         this.enteredString = "http://kyleriedemann.com";
         parseURL();
