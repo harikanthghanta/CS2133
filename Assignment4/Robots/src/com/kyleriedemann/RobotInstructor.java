@@ -19,6 +19,12 @@ public class RobotInstructor {
     //JSON constants to land and takeoff
     final String TAKEOFF_MSG = "{\"op\":\"publish\",\"topic\":\"/ardrone/takeoff\",\"msg\":{}}";
     final String LAND_MSG = "{\"op\":\"publish\",\"topic\":\"/ardrone/land\",\"msg\":{}}";
+    final String MOVE_FOREWARD_MESSAGE = "";
+    final String MOVE_BACKWARD_MESSAGE = "";
+    final String MOVE_LEFT_MESSAGE = "";
+    final String MOVE_RIGHT_MESSAGE = "";
+    final String ROTATE_LEFT_MESSAGE = "";
+    final String ROTATE_RIGHT_MESSAGE = "";
 
     //status codes
     final int SUCCESS = 1;
@@ -58,6 +64,78 @@ public class RobotInstructor {
     public int commandLand(){
         if(robotSocket != null && commandWriter != null){
             commandWriter.print(LAND_MSG);
+            commandWriter.flush();
+
+            return SUCCESS;
+        } else {
+            return FAILURE;
+        }
+    }
+
+    public int commandMoveForeward(){
+        System.out.println("foreward");
+        if(robotSocket != null && commandWriter != null){
+            commandWriter.print(MOVE_FOREWARD_MESSAGE);
+            commandWriter.flush();
+
+            return SUCCESS;
+        } else {
+            return FAILURE;
+        }
+    }
+
+    public int commandMoveBackward(){
+        System.out.println("backward");
+        if(robotSocket != null && commandWriter != null){
+            commandWriter.print(MOVE_BACKWARD_MESSAGE);
+            commandWriter.flush();
+
+            return SUCCESS;
+        } else {
+            return FAILURE;
+        }
+    }
+
+    public int commandMoveLeft(){
+        System.out.println("left");
+        if(robotSocket != null && commandWriter != null){
+            commandWriter.print(MOVE_LEFT_MESSAGE);
+            commandWriter.flush();
+
+            return SUCCESS;
+        } else {
+            return FAILURE;
+        }
+    }
+
+    public int commandMoveRight(){
+        System.out.println("right");
+        if(robotSocket != null && commandWriter != null){
+            commandWriter.print(MOVE_RIGHT_MESSAGE);
+            commandWriter.flush();
+
+            return SUCCESS;
+        } else {
+            return FAILURE;
+        }
+    }
+
+    public int commandRotateLeft(){
+        System.out.println("rotate left");
+        if(robotSocket != null && commandWriter != null){
+            commandWriter.print(ROTATE_LEFT_MESSAGE);
+            commandWriter.flush();
+
+            return SUCCESS;
+        } else {
+            return FAILURE;
+        }
+    }
+
+    public int commandRotateRight(){
+        System.out.println("rotate right");
+        if(robotSocket != null && commandWriter != null){
+            commandWriter.print(ROTATE_RIGHT_MESSAGE);
             commandWriter.flush();
 
             return SUCCESS;
