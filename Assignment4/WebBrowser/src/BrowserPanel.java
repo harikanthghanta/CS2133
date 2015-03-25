@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 public class BrowserPanel extends JPanel {
 
     BrowserFrame frame;
+    PageContent pageContent;
     JTextArea textArea;
     JTextField urlTextField;
     JScrollPane scrollPane;
@@ -39,7 +40,10 @@ public class BrowserPanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             String enteredText = urlTextField.getText();
             UrlRequest urlRequest = new UrlRequest();
-            urlRequest.downloadRawHtml(enteredText);
+            String rawHTML = urlRequest.downloadRawHtml(enteredText);
+            pageContent = new PageContent(rawHTML);
+            textArea.setText(pageContent.pageBody);
+            frame.setTitle(pageContent.pageTitle);
         }
     }
 }
