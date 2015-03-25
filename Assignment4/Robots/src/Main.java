@@ -1,7 +1,3 @@
-package com.kyleriedemann;
-
-import sun.nio.ch.sctp.SctpNet;
-
 import java.util.Scanner;
 
 public class Main {
@@ -26,7 +22,7 @@ public class Main {
         System.out.println("-------------------------------------------------------------------");
         System.out.println("Use the numberpad to move the robot in predefined movements.       ");
         System.out.println("[rotate left 90 degrees] [ move forward ] [rotate right 90 degrees]");
-        System.out.println("[      move left       ] [   Land/Exit  ] [       move right      ]");
+        System.out.println("[      move left       ] [     Land     ] [       move right      ]");
         System.out.println("[          N/A         ] [ move backward] [          N/A          ]");
         System.out.println("-------------------------------------------------------------------");
         System.out.println("Enter the desired number followed by the enter key:");

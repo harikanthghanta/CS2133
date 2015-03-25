@@ -1,5 +1,3 @@
-package com.kyleriedemann;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
@@ -19,12 +17,12 @@ public class RobotInstructor {
     //JSON constants to land and takeoff
     final String TAKEOFF_MSG = "{\"op\":\"publish\",\"topic\":\"/ardrone/takeoff\",\"msg\":{}}";
     final String LAND_MSG = "{\"op\":\"publish\",\"topic\":\"/ardrone/land\",\"msg\":{}}";
-    final String MOVE_FOREWARD_MESSAGE = "";
-    final String MOVE_BACKWARD_MESSAGE = "";
-    final String MOVE_LEFT_MESSAGE = "";
-    final String MOVE_RIGHT_MESSAGE = "";
-    final String ROTATE_LEFT_MESSAGE = "";
-    final String ROTATE_RIGHT_MESSAGE = "";
+    final String MOVE_FOREWARD_MESSAGE = "{\"receiver\":\"/cmd_vel\",\"msg\":{\"linear\":{\"x\":0.25,\"y\":0,\"z\":0},\"angular\":{\"x\":0,\"y\":0,\"z\":0}},\"type\":\"geometry_msgs/Twist\"}";
+    final String MOVE_BACKWARD_MESSAGE = "{\"receiver\":\"/cmd_vel\",\"msg\":{\"linear\":{\"x\":-0.25,\"y\":0,\"z\":0},\"angular\":{\"x\":0,\"y\":0,\"z\":0}},\"type\":\"geometry_msgs/Twist\"}";
+    final String MOVE_LEFT_MESSAGE = "{\"receiver\":\"/cmd_vel\",\"msg\":{\"linear\":{\"x\":0,\"y\":-0.25,\"z\":0},\"angular\":{\"x\":0,\"y\":0,\"z\":0}},\"type\":\"geometry_msgs/Twist\"}";
+    final String MOVE_RIGHT_MESSAGE = "{\"receiver\":\"/cmd_vel\",\"msg\":{\"linear\":{\"x\":0,\"y\":0.25,\"z\":0},\"angular\":{\"x\":0,\"y\":0,\"z\":0}},\"type\":\"geometry_msgs/Twist\"}";
+    final String ROTATE_LEFT_MESSAGE = "{\"receiver\":\"/cmd_vel\",\"msg\":{\"linear\":{\"x\":0,\"y\":0,\"z\":0},\"angular\":{\"x\":0,\"y\":0,\"z\":0.25}},\"type\":\"geometry_msgs/Twist\"}";
+    final String ROTATE_RIGHT_MESSAGE = "{\"receiver\":\"/cmd_vel\",\"msg\":{\"linear\":{\"x\":0,\"y\":0,\"z\":0},\"angular\":{\"x\":0,\"y\":0,\"z\":-0.25}},\"type\":\"geometry_msgs/Twist\"}";
 
     //status codes
     final int SUCCESS = 1;
