@@ -15,7 +15,7 @@ public class BrowserPanel extends JPanel {
         textField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new UrlFormatter().setEnteredString(textField.getText());
+                new UrlFormatter(textField.getText());
             }
         });
         setLayout(new BorderLayout());

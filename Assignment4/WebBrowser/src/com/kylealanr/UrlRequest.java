@@ -23,7 +23,7 @@ public class UrlRequest {
         return downloadRawHtml(url, DEFAULT_PORT);
     }
 
-    public String downloadRawHtml(String url, int port){
+    public String downloadRawHtml(String host, int port){
         Socket socket = null;
 
         //need to rename these, not very descriptive names
@@ -31,23 +31,23 @@ public class UrlRequest {
         BufferedReader bufferedReader = null;
 
         //probably just a temp variable, can use the entered url later
-        String validatedURL = "";
+        String formattedRequest = "";
 
 
         //make sure the URL starts with http://
-        if(!(url.startsWith("http://")) && port == 80){
-            url = "http://" + url;
-        } else if (!(url.startsWith("https://")) && port == 443){
-            url = "https://" + url;
+        if(!(host.startsWith("http://")) && port == 80){
+            host = "http://" + host;
+        } else if (!(host.startsWith("https://")) && port == 443){
+            host = "https://" + host;
         }
 
-        urlFormatter = new UrlFormatter(url);
-        validatedURL = urlFormatter.createRequest();
-        url = urlFormatter.getHostRequest();
+        urlFormatter = new UrlFormatter(host);
+        formattedRequest = urlFormatter.createRequest();
+        host = urlFormatter.getHostRequest();
 
 
         try {
-            socket = new Socket(url, port);
+            socket = new Socket(host, port);
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -65,7 +65,8 @@ public class UrlRequest {
                 System.out.println("failed to create buffered reader");
             }
 
-            printWriter.print(validatedURL);
+            System.out.println("Current request is:\n" + formattedRequest + "\n\n");
+            printWriter.print(formattedRequest);
             printWriter.flush();
 
             String pageLine = "";

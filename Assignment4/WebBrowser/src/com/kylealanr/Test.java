@@ -9,6 +9,6 @@ public class Test {
         //System.out.println(urlFormatter.createRequest());
 
         UrlRequest urlRequest = new UrlRequest();
-        System.out.println(urlRequest.downloadRawHtml("kyleriedemann.com"));
+        System.out.println(urlRequest.downloadRawHtml("http://casnr.okstate.edu/future-students"));
     }
 }

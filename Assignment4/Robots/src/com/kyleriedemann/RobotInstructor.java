@@ -14,7 +14,7 @@ public class RobotInstructor {
 
     //connection info
     final String HOST = "lear.cs.okstate.edu";
-    final int PORT = 9090;
+    final int PORT = 9095;
 
     //JSON constants to land and takeoff
     final String TAKEOFF_MSG = "{\"op\":\"publish\",\"topic\":\"/ardrone/takeoff\",\"msg\":{}}";

@@ -25,11 +25,6 @@ public class UrlFormatter {
         parseURL();
     }
 
-    UrlFormatter(){
-        this.enteredString = "http://kyleriedemann.com";
-        parseURL();
-    }
-
     public String getHostRequest() {
         return hostRequest;
     }
@@ -37,7 +32,8 @@ public class UrlFormatter {
     public void parseURL(){
         try {
             confirmedURL = new URL(enteredString);
-            fileRequest = confirmedURL.getFile();
+            fileRequest = ( (fileRequest = confirmedURL.getFile().trim()).equals("")) ? "/" : fileRequest;
+            System.out.println("File request: '"+fileRequest+"'");
             hostRequest = confirmedURL.getHost();
         } catch (MalformedURLException e){
             System.out.println("Entered a valid URL");
@@ -46,12 +42,8 @@ public class UrlFormatter {
 
     public String createRequest(){
         StringBuilder stringBuilder = new StringBuilder();
-        //stringBuilder.append("GET " + fileRequest + DEFAULT_PROTOCOL + "\r\n");
-        //stringBuilder.append("Host: " + hostRequest + "\r\n");
-        //stringBuilder.append("\r\n");
-
-        stringBuilder.append("GET " + fileRequest + DEFAULT_PROTOCOL + " ");
-        stringBuilder.append("Host: " + hostRequest);
+        stringBuilder.append("GET "+fileRequest+" "+DEFAULT_PROTOCOL+"\n");
+        stringBuilder.append("host: "+hostRequest+" \n\n");
 
         return stringBuilder.toString();
     }
