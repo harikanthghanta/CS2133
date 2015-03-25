@@ -1,11 +1,5 @@
-package com.kylealanr;
-
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.Socket;
-import java.net.URL;
-import java.net.UnknownHostException;
-import java.rmi.UnexpectedException;
 
 /**
  * Created by kyle on 3/21/15.
@@ -32,14 +26,6 @@ public class UrlRequest {
 
         //probably just a temp variable, can use the entered url later
         String formattedRequest = "";
-
-
-        //make sure the URL starts with http://
-        if(!(host.startsWith("http://")) && port == 80){
-            host = "http://" + host;
-        } else if (!(host.startsWith("https://")) && port == 443){
-            host = "https://" + host;
-        }
 
         urlFormatter = new UrlFormatter(host);
         formattedRequest = urlFormatter.createRequest();

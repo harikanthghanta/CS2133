@@ -1,5 +1,3 @@
-package com.kylealanr;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -21,10 +19,11 @@ public class BrowserFrame extends JFrame {
         setSize(WIDTH, HEIGHT);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        container = getContentPane();
-        container.setLayout(new BorderLayout());
+        BrowserPanel browserPanel = new BrowserPanel();
+        browserPanel.setFrame(this);
 
-        container.add(new BrowserPanel(), BorderLayout.NORTH);
+        container = getContentPane();
+        container.add(browserPanel);
 
         setVisible(true);
     }

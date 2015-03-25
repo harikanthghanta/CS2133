@@ -1,5 +1,3 @@
-package com.kylealanr;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -31,12 +29,17 @@ public class UrlFormatter {
 
     public void parseURL(){
         try {
+            //make sure the URL starts with http://
+            if(!(enteredString.startsWith("http://"))){
+                enteredString = "http://" + enteredString;
+            }
+
             confirmedURL = new URL(enteredString);
             fileRequest = ( (fileRequest = confirmedURL.getFile().trim()).equals("")) ? "/" : fileRequest;
             System.out.println("File request: '"+fileRequest+"'");
             hostRequest = confirmedURL.getHost();
         } catch (MalformedURLException e){
-            System.out.println("Entered a valid URL");
+            System.out.println("Malformed URL exception");
         }
     }
 

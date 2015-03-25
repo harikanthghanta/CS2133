@@ -1,5 +1,3 @@
-package com.kylealanr;
-
 /**
  * Created by kyle on 3/15/15.
  */
@@ -9,6 +7,6 @@ public class Test {
         //System.out.println(urlFormatter.createRequest());
 
         UrlRequest urlRequest = new UrlRequest();
-        System.out.println(urlRequest.downloadRawHtml("http://casnr.okstate.edu/future-students"));
+        System.out.println(urlRequest.downloadRawHtml("casnr.okstate.edu/future-students"));
     }
 }
