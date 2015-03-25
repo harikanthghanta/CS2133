@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Main {
+public class Robot {
 
     //Movement constants
     public static final int LAND = 5;
