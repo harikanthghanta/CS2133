@@ -1,0 +1,237 @@
+import java.io.Serializable;
+import java.util.Random;
+
+/**
+ * Created by kyle on 2/15/15.
+ *
+ * The game board object used to play the game.
+ */
+public class Board implements Serializable {
+    private static long serialVersionUID = -5061264484551653426L;
+
+    Tile[][] tiles;
+    int bombs;
+    int gameDifficulty;
+
+    //difficulty constants
+    public static final int EASY = 1;
+    public static final int MEDIUM = 2;
+    public static final int HARD = 3;
+    public static final int BOMBASTIC = 4;//Lol if Cr1ck will even think this is a good idea XDDDDDDDDDDDDDDDDD
+
+    /**
+     * Creates a new board and places the bombs.
+     *
+     * @param gameDifficulty The desired difficulty of the board, changes the number of bombs placed.
+     */
+    public Board(int gameDifficulty) {
+        makeBoard(gameDifficulty);
+        this.placeBombs();
+    }
+
+    public int getBombs() {
+        return bombs;
+    }
+
+    public Tile[][] getTiles() {
+        return tiles;
+    }
+
+    public Tile getTile(int r, int c){
+        return tiles[r][c];
+    }
+
+    public void setFlag(int r, int c){
+        tiles[r][c].setFlag(true);
+    }
+
+    public void removeFlag(int r, int c){
+        tiles[r][c].setFlag(false);
+    }
+
+    public void setCover(int r, int c){
+        tiles[r][c].setCover(true);
+    }
+
+    public void removeCover(int r, int c){
+        tiles[r][c].setCover(false);
+    }
+
+    /**
+     * Creates the game tiles consisting of a two dimensional array.
+     * Also sets the class variables of number of bombs and debugging variables.
+     *
+     * @param difficulty the desired difficulty of the game checked against constants
+     */
+    public void makeBoard(int difficulty){
+        switch(difficulty){
+            case EASY:
+                tiles = new Tile[10][10];
+                bombs = 5;
+                gameDifficulty = EASY;
+                break;
+            case MEDIUM:
+                tiles = new Tile[10][10];
+                bombs = 15;
+                gameDifficulty = MEDIUM;
+                break;
+            case HARD:
+                tiles = new Tile[15][15];
+                bombs = 25;
+                gameDifficulty = HARD;
+                break;
+            case BOMBASTIC:
+                tiles = new Tile[15][15];
+                bombs = 50;
+                gameDifficulty = BOMBASTIC;
+                break;
+            default:
+                tiles = new Tile[10][10];
+                bombs = 5;
+                gameDifficulty = EASY;
+                break;
+        }
+        for(int r = 0; r < tiles.length; r++){
+            for(int c = 0; c < tiles[r].length; c++){
+                tiles[r][c] = new Tile();
+            }
+        }
+    }
+
+    /**
+     * Prints the tiles to the command line. Used for the CLI version of the game.
+     * Currently this prints a new board each time, also not formatted very well.
+     *
+     */
+    public void printBoard(){
+        for(int i = 0; i < tiles.length; i++){
+            for(int j = 0; j < tiles[i].length; j++){
+                if (tiles[i][j].isBomb()) {
+                    System.out.print("B ");
+                } else if(tiles[i][j].isFlag()){
+                    System.out.print("F ");
+                } else if(!tiles[i][j].isCover()){
+                    System.out.print(tiles[i][j].getBombsAround() + " ");
+                } else {
+                    System.out.print("X ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    /**
+     * Places the desired number of bombs on random squares of the tiles.
+     */
+    public void placeBombs(){
+        for(int i = 0; i < this.bombs; i++){
+            Random random = new Random();
+            int r = random.nextInt(tiles.length);
+            int c = random.nextInt(tiles[r].length);
+
+            if(!tiles[r][c].isBomb()){
+                tiles[r][c].setBomb(true);
+            } else {
+                i--;
+            }
+        }
+    }
+
+    /**
+     * method that sets the bombs around to 0, probably not needed anymore
+     */
+    public void clearBombsAround(){
+        for (int r = 0; r < this.tiles.length; r++){
+            for (int c = 0; c < this.tiles[r].length; c++){
+                this.tiles[r][c].setBombsAround(0);
+            }
+        }
+    }
+
+    /**
+     * Loops through all the tiles of the board, then every tile adjacent to that tile counting the bombs.
+     * Then sets the bombsAround attribute of the current tile to the count of the bomb.
+     */
+    public void findBombsAround(){
+        clearBombsAround();
+
+        //loop through all the tiles
+        for(int row = 0; row < this.tiles.length; row++){
+            for(int col = 0; col < this.tiles[row].length; col++){
+                //if we find a bomb, mak the tiles around it
+                if(!this.tiles[row][col].isBomb()){
+                    int count = 0;
+
+                    //loop through all the tiles adjacent to the bomb
+                    for(int x = row - 1; x <= row + 1; x++){
+                        for(int y = col - 1; y <= col + 1; y++){
+                            if(x >= 0 && x < tiles.length && y >= 0 && y < tiles[row].length){
+                                if(tiles[x][y].isBomb()){
+                                    count++;
+                                }
+                            }
+                        }
+                    }
+                    tiles[row][col].setBombsAround(count);
+                }
+            }
+        }
+    }
+
+    /**
+     * Recursive method to clear all the spaces around the tile clicked
+     *
+     * @param row the row of the tile to clear
+     * @param col the column of the tile to clear
+     */
+    //TODO i think i need to recursively call this around all adjectent spaces if I find one that's 0, and uncover them unles they are bombs or flags
+    public void clearSpacesAround(int row, int col) {
+        //loop through adjacent tiles to the one passed in
+        findBombsAround();
+        if(tiles[row][col].getBombsAround() == 0){
+            for(int x = row - 1; x <= row + 1; x++){
+                for(int y = col - 1; y <= col + 1; y++){
+                    //make sure the adjacent tile is in the bounds of the game board
+                    if(x >= 0 && x < tiles.length && y >= 0 && y < tiles[row].length){
+                        //if the tile isn't a bomb and is covered, uncover the tile and make a recursive call
+                        //this is important so we don't call the method on covered tiles, which makes this method much more likely to result in a StackOverflow
+                        if(!tiles[x][y].isBomb() && tiles[x][y].isCover() && tiles[x][y].getBombsAround() == 0){
+                            tiles[x][y].setCover(false);
+                            clearSpacesAround(x, y);
+                        } else if(!tiles[x][y].isBomb() && !tiles[x][y].isFlag()){
+                            tiles[x][y].setCover(false);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Checks if all the bombs are covered with flags, and if the number of flags is equal to the number of bombs on the board.
+     *
+     * @return True if the conditions are met, false if they are not.
+     */
+    public boolean checkWinner(){
+        int flaggedBombs = 0;
+        int flagCount = 0;
+
+        for(int row = 0; row < this.tiles.length; row++) {
+            for(int col = 0; col < this.tiles[row].length; col++) {
+                if(tiles[row][col].isFlag()){
+                    flagCount++;
+                }
+
+                if(tiles[row][col].isBomb() && tiles[row][col].isFlag()){
+                    flaggedBombs++;
+                }
+            }
+        }
+        if(flaggedBombs == bombs && flagCount == bombs){
+            System.out.println("Winner");
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
